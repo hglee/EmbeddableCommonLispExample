@@ -1,0 +1,1 @@
+(defparameter EXT::MS-HEBR (ext::make-encoding 'EXT::WINDOWS-CP1255))

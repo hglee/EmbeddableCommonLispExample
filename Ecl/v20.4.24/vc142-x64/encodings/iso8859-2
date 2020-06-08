@@ -1,0 +1,1 @@
+(defparameter EXT::ISO8859-2 (ext::make-encoding 'EXT::ISO-8859-2))

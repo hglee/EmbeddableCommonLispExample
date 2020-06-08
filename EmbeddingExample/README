@@ -1,0 +1,7 @@
+Embedding Example for Windows
+
+1. Original example: https://github.com/fabriceleal/ecl-win-vs11-example
+
+Build error fixed
+
+2. Copy ecl.dll and encodings direcory to output directory before run.
