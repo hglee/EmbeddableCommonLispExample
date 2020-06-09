@@ -1,0 +1,1 @@
+(defparameter EXT::KOI8R (ext::make-encoding 'EXT::KOI8-R))

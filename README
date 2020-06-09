@@ -2,6 +2,9 @@ Embeddable Common Lisp Example
 
 1. Embeddable Common Lisp: https://common-lisp.net/project/ecl/
 
-2. All binary built with VS2019(vc142)
+2. Binary
+
+ - vc90: VS2008
+ - vc142: VS2019
 
 3. Copy ecl.dll and encodings direcory to output directory.

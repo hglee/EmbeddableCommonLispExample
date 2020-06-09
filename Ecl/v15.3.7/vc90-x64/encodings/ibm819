@@ -1,0 +1,1 @@
+(defparameter EXT::IBM819 (ext::make-encoding 'EXT::ISO-8859-1))

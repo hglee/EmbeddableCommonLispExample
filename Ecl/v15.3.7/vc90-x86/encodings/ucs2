@@ -1,0 +1,1 @@
+(defparameter EXT::UCS2 ':UCS-2)

@@ -1,0 +1,1 @@
+(defparameter EXT::CP862 (ext::make-encoding 'EXT::DOS-CP862))
