@@ -19,6 +19,8 @@
             try
             {
                 var engine = new EclEngine();
+                engine.RegisterFunction("foo", () => new EclObject(42));
+
                 var exit = new EclObject(":EXIT");
                 var result = new EclObject();
 

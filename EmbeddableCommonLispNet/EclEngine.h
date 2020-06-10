@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ecl/ecl.h>
+#include "EclFunc0.h"
 #include "EclObject.h"
 
 namespace EmbeddableCommonLispNet
@@ -11,6 +11,11 @@ namespace EmbeddableCommonLispNet
 	public ref class EclEngine
 	{
 	public:
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EclEngine"/> class.
+		/// </summary>
+		EclEngine();
+		
 		/// <summary>
 		/// Evaluate call string.
 		/// </summary>
@@ -39,5 +44,12 @@ namespace EmbeddableCommonLispNet
 		/// </summary>
 		/// <param name="obj">Target object.</param>
 		void Print(EclObject ^obj);
+
+		/// <summary>
+		/// Register function
+		/// </summary>
+		/// <param name="name"></param>
+		/// <param name="function"></param>
+		EclFunc0 ^RegisterFunction(System::String ^name, System::Func<EclObject ^> ^function);
 	};
 }
