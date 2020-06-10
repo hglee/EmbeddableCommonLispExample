@@ -23,6 +23,12 @@ EclObject::EclObject(String^ str)
 	this->obj_ = c_string_to_object((const char *)ptr.ToPointer());
 }
 
+EclObject::EclObject(int value)
+	: obj_(ecl_make_integer(value))
+{
+
+}
+
 EclObject::EclObject(cl_object obj)
 	: obj_(obj)
 {

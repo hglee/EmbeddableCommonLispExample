@@ -18,9 +18,13 @@ namespace EmbeddableCommonLispNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EclObject"/> class.
 		/// </summary>
-		/// <param name="str">Target string</param>
 		EclObject(System::String^ str);
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EclObject"/> class.
+		/// </summary>
+		EclObject(int value);
+		
 		/// <summary>
 		/// Gets default nil object.
 		/// </summary>
