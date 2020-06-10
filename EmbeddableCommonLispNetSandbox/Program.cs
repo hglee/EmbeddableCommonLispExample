@@ -18,7 +18,19 @@
 
             try
             {
+                var engine = new EclEngine();
+                var exit = new EclObject(":EXIT");
+                var result = new EclObject();
 
+                while (!result.IsEqual(exit))
+                {
+                    Console.WriteLine();
+                    Console.Write("> ");
+
+                    var form = engine.Call("(read)");
+                    result = engine.Eval(form);
+                    engine.Print(result);
+                }
             }
             catch (Exception ex)
             {
