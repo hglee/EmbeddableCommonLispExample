@@ -33,6 +33,9 @@
     <ClInclude Include="EclFunc0.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EclFunc2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -51,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EclFunc0.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EclFunc2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -37,6 +37,17 @@ namespace EmbeddableCommonLispNet
 		}
 
 		/// <summary>
+		/// Gets fixnum value.
+		/// </summary>
+		property int FixNum
+		{
+			int get()
+			{
+				return fix(this->obj_);
+			}
+		}
+
+		/// <summary>
 		/// Compares to current object to obj
 		/// </summary>
 		/// <param name="obj">Target object.</param>

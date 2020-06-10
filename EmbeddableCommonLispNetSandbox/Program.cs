@@ -20,6 +20,7 @@
             {
                 var engine = new EclEngine();
                 engine.RegisterFunction("foo", () => new EclObject(42));
+                engine.RegisterFunction("bar", (x, y) => new EclObject(x.FixNum + y.FixNum));
 
                 var exit = new EclObject(":EXIT");
                 var result = new EclObject();
