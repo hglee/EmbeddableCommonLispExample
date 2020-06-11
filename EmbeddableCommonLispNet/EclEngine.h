@@ -16,6 +16,13 @@ namespace EmbeddableCommonLispNet
 		/// Initializes a new instance of the <see cref="EclEngine"/> class.
 		/// </summary>
 		EclEngine();
+
+		/// <summary>
+		/// Constructs object from string.
+		/// </summary>
+		/// <param name="str">Object representation</param>
+		/// <returns>Returns object.</returns>
+		EclObject^ Read(System::String^ str);
 		
 		/// <summary>
 		/// Evaluate call string.

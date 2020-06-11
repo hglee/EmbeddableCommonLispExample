@@ -44,7 +44,7 @@ void EclFunc0::Register()
 {
 	// register .NET handle as foreign data
 	auto namePtr = Marshal::StringToHGlobalAnsi(this->internalName_);
-	auto data = ecl_make_pointer(this->GetPointer());
+	const auto data = ecl_make_pointer(this->GetPointer());
 
 	ecl_defvar(c_string_to_object((const char*)namePtr.ToPointer()), data);
 

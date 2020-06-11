@@ -46,9 +46,23 @@ EclEngine::EclEngine()
 	ecl_def_c_function(c_string_to_object("_EngineCallFunc2"), (cl_objectfn_fixed)EngineCallFunc2, 3);
 }
 
+EclObject^ EclEngine::Read(String^ str)
+{
+	if (str == nullptr)
+	{
+		return EclObject::Nil;
+	}
+
+	IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
+
+	auto obj = ecl_read_from_cstring((const char*)ptr.ToPointer());
+
+	return gcnew EclObject(obj);
+}
+
 EclObject^ EclEngine::Call(String^ call)
 {
-	return this->Eval(gcnew EclObject(call));
+	return this->Eval(this->Read(call));
 }
 
 EclObject^ EclEngine::Eval(EclObject^ form)

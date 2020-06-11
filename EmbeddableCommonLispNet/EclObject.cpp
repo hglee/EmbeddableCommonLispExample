@@ -20,13 +20,19 @@ EclObject::EclObject(String^ str)
 
 	IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
 
-	this->obj_ = c_string_to_object((const char *)ptr.ToPointer());
+	this->obj_ = ecl_make_simple_base_string((const char*)ptr.ToPointer(), -1);
 }
 
 EclObject::EclObject(int value)
 	: obj_(ecl_make_integer(value))
 {
 
+}
+
+EclObject::EclObject(double value)
+	: obj_(ecl_make_double_float(value))
+{
+	
 }
 
 EclObject::EclObject(cl_object obj)
@@ -46,4 +52,15 @@ bool EclObject::IsEqual(EclObject^ obj)
 	}
 	
 	return cl_equal(this->obj_, obj->obj_) != Cnil;
+}
+
+String^ EclObject::GetBaseString(cl_object obj)
+{
+	if (ECL_BASE_STRING_P(obj))
+	{
+		return gcnew String((const char*)(obj->base_string.self));
+	}
+
+	// TODO: introduce exception type
+	throw gcnew ApplicationException("obj is not base string type.");
 }
