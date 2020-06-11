@@ -1,4 +1,5 @@
 Embeddable Common Lisp Example
+==============================
 
 1. Embeddable Common Lisp: https://common-lisp.net/project/ecl/
 
@@ -8,3 +9,23 @@ Embeddable Common Lisp Example
  - vc142: VS2019
 
 3. Copy ecl.dll and encodings direcory to output directory.
+
+
+EmbeddingExample
+----------------
+
+1. C/C++ embedding example project
+
+
+EmbeddableCommonLispNet
+-----------------------
+
+1. .net binding project
+
+2. You need VS2019 with .NET Core SDK and C++/CLI support
+
+
+EmbeddableCommonLispNetSandbox
+------------------------------
+
+1. .net example project for EmbeddableCommonLispNet
