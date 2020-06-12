@@ -23,7 +23,7 @@ EclObject::EclObject(String^ str)
 	this->obj_ = ecl_make_simple_base_string((const char*)ptr.ToPointer(), -1);
 }
 
-EclObject::EclObject(int value)
+EclObject::EclObject(long long value)
 	: obj_(ecl_make_integer(value))
 {
 

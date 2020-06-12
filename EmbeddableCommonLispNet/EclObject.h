@@ -24,7 +24,7 @@ namespace EmbeddableCommonLispNet
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EclObject"/> class.
 		/// </summary>
-		EclObject(int value);
+		EclObject(long long value);
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EclObject"/> class.
@@ -89,9 +89,9 @@ namespace EmbeddableCommonLispNet
 		/// <summary>
 		/// Gets fixnum value.
 		/// </summary>
-		property int FixNum
+		property long long FixNum
 		{
-			int get()
+			long long get()
 			{
 				if (ECL_FIXNUMP(this->obj_))
 				{
@@ -155,7 +155,7 @@ namespace EmbeddableCommonLispNet
 		/// <summary>
 		/// Gets current object as fixnum
 		/// </summary>
-		int ToFixNum()
+		long long ToFixNum()
 		{
 			return ecl_to_fixnum(this->obj_);
 		}
