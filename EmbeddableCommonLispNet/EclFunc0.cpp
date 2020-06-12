@@ -27,10 +27,15 @@ EclFunc0::EclFunc0(String ^name, Func<EclObject^>^ function)
 
 EclFunc0::~EclFunc0()
 {
+	this->!EclFunc0();
+}
+
+EclFunc0::!EclFunc0()
+{
 	if (this->handle_.IsAllocated)
 	{
 		this->Unregister();
-		
+
 		this->handle_.Free();
 	}
 }

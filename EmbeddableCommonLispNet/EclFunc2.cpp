@@ -27,6 +27,11 @@ EclFunc2::EclFunc2(String^ name, Func<EclObject^, EclObject ^, EclObject ^>^ fun
 
 EclFunc2::~EclFunc2()
 {
+	this->!EclFunc2();
+}
+
+EclFunc2::!EclFunc2()
+{
 	if (this->handle_.IsAllocated)
 	{
 		this->Unregister();
@@ -34,6 +39,7 @@ EclFunc2::~EclFunc2()
 		this->handle_.Free();
 	}
 }
+
 
 EclObject^ EclFunc2::Run(EclObject ^p1, EclObject ^p2)
 {

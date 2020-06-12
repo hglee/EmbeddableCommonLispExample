@@ -20,6 +20,9 @@ namespace EmbeddableCommonLispNet
 		/// <summary>Destructor</summary>
 		~EclFunc0();
 
+		/// <summary>Finalizer</summary>
+		!EclFunc0();
+		
 		/// <summary>
 		/// Run function.
 		/// </summary>

@@ -21,6 +21,9 @@ namespace EmbeddableCommonLispNet
 		/// <summary>Destructor</summary>
 		~EclFunc2();
 
+		/// <summary>Finalizer</summary>
+		!EclFunc2();
+
 		/// <summary>
 		/// Run function.
 		/// </summary>
