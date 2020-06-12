@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="BaseEclFunc.h" />
     <ClInclude Include="EclEngine.h" />
     <ClInclude Include="EclFunc0.h" />
     <ClInclude Include="EclFunc2.h" />
@@ -138,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="BaseEclFunc.cpp" />
     <ClCompile Include="EclEngine.cpp" />
     <ClCompile Include="EclFunc0.cpp" />
     <ClCompile Include="EclFunc2.cpp" />

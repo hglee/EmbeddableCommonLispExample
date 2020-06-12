@@ -110,7 +110,10 @@ EclFunc0 ^EclEngine::RegisterFunction(String ^name, Func<EclObject^>^ function)
 		throw gcnew ArgumentNullException("function");
 	}
 
-	return gcnew EclFunc0(name, function);
+	auto result = gcnew EclFunc0(name, function);
+	result->Register();
+
+	return result;
 }
 
 EclFunc2^ EclEngine::RegisterFunction(String^ name, Func<EclObject^, EclObject^, EclObject^>^ function)
@@ -125,5 +128,8 @@ EclFunc2^ EclEngine::RegisterFunction(String^ name, Func<EclObject^, EclObject^,
 		throw gcnew ArgumentNullException("function");
 	}
 
-	return gcnew EclFunc2(name, function);
+	auto result = gcnew EclFunc2(name, function);
+	result->Register();
+
+	return result;
 }
