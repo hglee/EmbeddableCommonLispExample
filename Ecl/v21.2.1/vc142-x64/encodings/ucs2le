@@ -1,0 +1,1 @@
+(defparameter EXT::UCS2LE ':UCS-2LE)

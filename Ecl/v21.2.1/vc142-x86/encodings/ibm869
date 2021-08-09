@@ -1,0 +1,1 @@
+(defparameter EXT::IBM869 (ext::make-encoding 'EXT::DOS-CP869))
