@@ -20,7 +20,14 @@ static void ConvertStringArray(cli::array<String ^>^ input, vector<char *> &outp
 	{
 		IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
 
-		output.push_back(_strdup((const char*)ptr.ToPointer()));
+		try
+		{
+			output.push_back(_strdup((const char*)ptr.ToPointer()));
+		}
+		finally
+		{
+			Marshal::FreeHGlobal(ptr);
+		}
 	}
 }
 

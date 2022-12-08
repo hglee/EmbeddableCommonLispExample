@@ -36,17 +36,14 @@ BaseEclFunc::!BaseEclFunc()
 void BaseEclFunc::Register()
 {
 	// register .NET handle as foreign data
-	auto namePtr = Marshal::StringToHGlobalAnsi(this->internalName_);
 	const auto data = ecl_make_pointer(this->GetPointer());
 
-	ecl_defvar(c_string_to_object((const char*)namePtr.ToPointer()), data);
+	ecl_defvar(EclObject::ReadFromString(this->internalName_), data);
 }
 
 void BaseEclFunc::Unregister()
 {
-	auto namePtr = Marshal::StringToHGlobalAnsi(this->internalName_);
-
-	ecl_defvar(c_string_to_object((const char*)namePtr.ToPointer()), Cnil);
+	ecl_defvar(EclObject::ReadFromString(this->internalName_), Cnil);
 }
 
 void* BaseEclFunc::GetPointer()

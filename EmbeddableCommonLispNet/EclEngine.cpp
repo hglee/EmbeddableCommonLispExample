@@ -53,11 +53,7 @@ EclObject^ EclEngine::Read(String^ str)
 		return EclObject::Nil;
 	}
 
-	IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
-
-	auto obj = ecl_read_from_cstring((const char*)ptr.ToPointer());
-
-	return gcnew EclObject(obj);
+	return gcnew EclObject(EclObject::ReadFromString(str));
 }
 
 EclObject^ EclEngine::Call(String^ call)

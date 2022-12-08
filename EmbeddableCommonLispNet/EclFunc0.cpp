@@ -21,9 +21,8 @@ void EclFunc0::Register()
 
 	// register wrapper function
 	auto funcDef = String::Format("(defun {0} () (_EngineCallFunc0 {1}))", this->Name, this->InternalName);
-	auto funcDefPtr = Marshal::StringToHGlobalAnsi(funcDef);
 
-	cl_safe_eval(c_string_to_object((const char*)funcDefPtr.ToPointer()), Cnil, Cnil);
+	cl_safe_eval(EclObject::ReadFromString(funcDef), Cnil, Cnil);
 }
 
 EclObject ^EclFunc0::Run()

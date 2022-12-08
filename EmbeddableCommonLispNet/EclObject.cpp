@@ -20,7 +20,14 @@ EclObject::EclObject(String^ str)
 
 	IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
 
-	this->obj_ = ecl_make_simple_base_string((const char*)ptr.ToPointer(), -1);
+	try
+	{
+		this->obj_ = ecl_make_simple_base_string((const char*)ptr.ToPointer(), -1);
+	}
+	finally
+	{
+		Marshal::FreeHGlobal(ptr);
+	}
 }
 
 EclObject::EclObject(long long value)
@@ -41,6 +48,25 @@ EclObject::EclObject(cl_object obj)
 	if (obj == nullptr)
 	{
 		this->obj_ = Cnil;
+	}
+}
+
+cl_object EclObject::ReadFromString(System::String^ str)
+{
+	if (str == nullptr)
+	{
+		return Cnil;
+	}
+
+	IntPtr ptr = Marshal::StringToHGlobalAnsi(str);
+
+	try
+	{
+		return si_string_to_object(1, ecl_make_simple_base_string((const char*)ptr.ToPointer(), -1));
+	}
+	finally
+	{
+		Marshal::FreeHGlobal(ptr);
 	}
 }
 

@@ -176,6 +176,13 @@ namespace EmbeddableCommonLispNet
 		EclObject(cl_object obj);
 
 		/// <summary>
+		/// Read from string
+		/// </summary>
+		/// <param name="str">Target str</param>
+		/// <returns>Result object</returns>
+		static cl_object ReadFromString(System::String^ str);
+
+		/// <summary>
 		/// Gets internal backfield.
 		/// </summary>
 		cl_object GetInternal()
