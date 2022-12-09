@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ecl/ecl.h>
+#include "EclException.h"
 
 namespace EmbeddableCommonLispNet
 {
@@ -98,7 +99,7 @@ namespace EmbeddableCommonLispNet
 					return ecl_fixnum(this->obj_);
 				}
 
-				throw gcnew System::ApplicationException("Object is not fixnum");
+				throw gcnew EclException("Object is not fixnum");
 			}
 		}
 
@@ -114,7 +115,7 @@ namespace EmbeddableCommonLispNet
 					return ecl_double_float(this->obj_);
 				}
 
-				throw gcnew System::ApplicationException("Object is not double");
+				throw gcnew EclException("Object is not double");
 			}
 		}
 		
@@ -141,7 +142,7 @@ namespace EmbeddableCommonLispNet
 					return this->GetBaseString(ecl_symbol_name(this->obj_));
 				}
 
-				throw gcnew System::ApplicationException("Object is not symbol");
+				throw gcnew EclException("Object is not symbol");
 			}
 		}
 

@@ -87,6 +87,5 @@ String^ EclObject::GetBaseString(cl_object obj)
 		return gcnew String((const char*)(obj->base_string.self));
 	}
 
-	// TODO: introduce exception type
-	throw gcnew ApplicationException("obj is not base string type.");
+	throw gcnew EclException("obj is not base string type.");
 }

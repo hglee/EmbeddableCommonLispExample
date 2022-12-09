@@ -130,6 +130,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="BaseEclFunc.h" />
     <ClInclude Include="EclEngine.h" />
+    <ClInclude Include="EclException.h" />
     <ClInclude Include="EclFunc0.h" />
     <ClInclude Include="EclFunc2.h" />
     <ClInclude Include="EclObject.h" />
