@@ -66,13 +66,13 @@ namespace EmbeddableCommonLispNet
 		}
 
 		/// <summary>
-		/// Gets current object is base string or not.
+		/// Gets current object is string or not.
 		/// </summary>
-		property bool IsBaseString
+		property bool IsString
 		{
 			bool get()
 			{
-				return ECL_BASE_STRING_P(this->obj_);
+				return ECL_STRINGP(this->obj_);
 			}
 		}
 
@@ -120,13 +120,13 @@ namespace EmbeddableCommonLispNet
 		}
 		
 		/// <summary>
-		/// Gets base string.
+		/// Gets string.
 		/// </summary>
-		property System::String ^BaseString
+		property System::String ^LString
 		{
 			System::String ^get()
 			{
-				return this->GetBaseString(this->obj_);
+				return this->GetString(this->obj_);
 			}
 		}
 		
@@ -139,7 +139,7 @@ namespace EmbeddableCommonLispNet
 			{
 				if (ECL_SYMBOLP(this->obj_))
 				{
-					return this->GetBaseString(ecl_symbol_name(this->obj_));
+					return this->GetString(ecl_symbol_name(this->obj_));
 				}
 
 				throw gcnew EclException("Object is not symbol");
@@ -193,11 +193,11 @@ namespace EmbeddableCommonLispNet
 		
 	private:
 		/// <summary>
-		/// Gets base string from obj.
+		/// Gets string from obj.
 		/// </summary>
 		/// <param name="obj">Target object.</param>
-		/// <returns>Returns base string of obj.</returns>
-		System::String^ GetBaseString(cl_object obj);
+		/// <returns>Returns string of obj.</returns>
+		System::String^ GetString(cl_object obj);
 		
 		/// <summary>
 		/// Default nil object.

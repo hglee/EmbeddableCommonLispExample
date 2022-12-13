@@ -80,12 +80,17 @@ bool EclObject::IsEqual(EclObject^ obj)
 	return cl_equal(this->obj_, obj->obj_) != Cnil;
 }
 
-String^ EclObject::GetBaseString(cl_object obj)
+String^ EclObject::GetString(cl_object obj)
 {
 	if (ECL_BASE_STRING_P(obj))
 	{
 		return gcnew String((const char*)(obj->base_string.self));
 	}
 
-	throw gcnew EclException("obj is not base string type.");
+	if (ECL_STRINGP(obj))
+	{
+		return gcnew String((const char*)(obj->string.self));
+	}
+
+	throw gcnew EclException("obj is not string type.");
 }
