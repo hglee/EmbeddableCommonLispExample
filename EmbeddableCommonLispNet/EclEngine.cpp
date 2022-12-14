@@ -129,3 +129,9 @@ EclFunc2^ EclEngine::RegisterFunction(String^ name, Func<EclObject^, EclObject^,
 
 	return result;
 }
+
+void EclEngine::EnableLoadPrint(bool state)
+{
+	this->Call(String::Format("(setq *load-verbose* {0})", state ? "T" : "nil"));
+	this->Call(String::Format("(setq *load-print* {0})", state ? "T" : "nil"));
+}

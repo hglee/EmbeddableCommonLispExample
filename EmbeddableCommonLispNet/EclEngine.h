@@ -66,5 +66,11 @@ namespace EmbeddableCommonLispNet
 		/// <param name="name"></param>
 		/// <param name="function"></param>
 		EclFunc2^ RegisterFunction(System::String^ name, System::Func<EclObject^, EclObject ^, EclObject ^>^ function);
+
+		/// <summary>
+		/// Enable or disable print on load.
+		/// </summary>
+		/// <param name="state">Enable state</param>
+		void EnableLoadPrint(bool state);
 	};
 }
