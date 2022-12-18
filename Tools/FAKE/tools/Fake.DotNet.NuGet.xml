@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.DotNet.NuGet</name></assembly>
+<members>
+<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams.Retries">
+<summary>
+ Specifies how often nuget should try to restore the packages - default is 5
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams">
+<summary>
+ RestorePackages parameter path for single packages
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageParams.Retries">
+<summary>
+ Specifies how often nuget should try to restore the packages - default is 5
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.RestorePackageParams">
+<summary>
+ RestorePackages parameter path
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore.NugetRestoreVerbosity">
+<summary>
+ RestorePackages Verbosity settings
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestoreMSSolutionPackages(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
+<summary>
+ Restores the packages in the given solution file file from NuGet.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `solutionFile` - The microsoft sln file name.
+
+ ## Sample
+
+     Target &quot;RestorePackages&quot; (fun _ -&gt;
+          &quot;./src/Everything.sln&quot;
+          |&gt; RestoreMSSolutionPackages (fun p -&gt;
+              { p with
+                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
+                  OutputPath = outputDir
+                  Retries = 4 })
+      )
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackages">
+<summary>
+ Restores all packages from NuGet to the default directories by scanning for packages.config files in any subdirectory.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackage(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestorePackageParams,Fake.DotNet.NuGet.Restore.RestorePackageParams},System.String)">
+<summary>
+ Restores the packages in the given packages.config file from NuGet.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `packageFile` - The packages.config file name.
+
+ ## Sample
+
+     Target &quot;RestorePackages&quot; (fun _ -&gt;
+          &quot;./src/ProjectA/packages.config&quot;
+          |&gt; RestorePackage (fun p -&gt;
+              { p with
+                  Sources = &quot;http://myNugetSources.com&quot; :: p.Sources
+                  OutputPath = outputDir
+                  Retries = 4 })
+      )
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.RestorePackageId(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
+<summary>
+ Restores the given package from NuGet
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.buildNuGetArgs(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams,Fake.DotNet.NuGet.Restore.RestoreSinglePackageParams},System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.buildSources(Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.runNuGetTrial(System.Int32,System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.runNuGet(System.String,System.TimeSpan,System.String,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestoreSinglePackageDefaults">
+<summary>
+ RestoreSinglePackageParams defaults parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Restore.RestorePackageDefaults">
+<summary>
+ RestorePackage defaults parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Restore.findNuget(System.String)">
+<summary>
+ Looks for NuGet.exe in [1] the specified defaultPath, [2] a list of standard tool folders, [3] any subfolder in the current directory, [4] the PATH - returns the first path where NuGet.exe was found.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Restore">
+<summary>
+ Contains tasks which allow to restore NuGet packages from a NuGet package feed like [nuget.org](http://www.nuget.org).
+ There is also a tutorial about [nuget package restore](/dotnet-nuget.html) available.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuSpecPackage">
+<summary>
+ NuSpec metadata type
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.PushTrials">
+<summary>
+ Number of times to retry pushing the package
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.Timeout">
+<summary>
+ Specifies the timeout for pushing to a server.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.SymbolSource">
+<summary>
+ Specifies the symbol server URL.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.SymbolApiKey">
+<summary>
+ The API key for the symbol server.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.Source">
+<summary>
+ Specifies the server URL. This option is required unless DefaultPushSource config value is set in the NuGet config file.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.NoServiceEndpoint">
+<summary>
+ Doesn&apos;t append &quot;api/v2/package&quot; to the source URL.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.NoSymbols">
+<summary>
+ Doesn&apos;t push symbols (even if present).
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.ApiKey">
+<summary>
+ The API key for the server
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.NuGetPushParams.DisableBuffering">
+<summary>
+ Disables buffering when pushing to an HTTP(S) server to reduce memory usage.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuGetPushParams">
+<summary>
+ dotnet nuget push command options
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet.NuGetParams">
+<summary>
+ Nuget parameter type
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.Nuspec">
+<summary>
+ Build a symbol package using the nuspec file
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.ProjectFile">
+<summary>
+ Build a symbol package using a project file, if provided
+</summary>
+</member>
+<member name="F:Fake.DotNet.NuGet.NuGet.NugetSymbolPackage.None">
+<summary>
+ Do not build symbol packages
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getDependencies(System.String)">
+<summary>
+ Returns the dependencies from specified packages.config file
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.downloadPackage(System.String,Fake.DotNet.NuGet.NuGet.NuSpecPackage)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.searchByTitle(System.String,System.String)">
+<summary>
+ Search NuGet query endpoint for packages macthing given name by title
+ ## Parameters
+
+  - `repoUrl` - Query endpoint of NuGet search service
+  - `packageName` - The package to search for
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getLatestPackage(System.String,System.String)">
+<summary>
+ Gets the latest published package from NuGet feed by package id.
+ ## Parameters
+
+  - `repoUrl` - Query endpoint of NuGet search service
+  - `packageName` - The package to get
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getPackage(System.String,System.String,System.String)">
+<summary>
+ Gets a Package information from NuGet feed by package id.
+ ## Parameters
+
+  - `repoUrl` - Query endpoint of NuGet search service
+  - `packageName` - The package to get
+  - `version` - The specific version to get
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.extractFeedPackageFromJson(Newtonsoft.Json.Linq.JObject,System.Boolean)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getRepoUrl">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.discoverRepoUrl">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.NuGet.galleryV3">
+<summary>
+ Returns the NuGet meta data from the given package file name.
+ ## Parameters
+
+  - `packageFileName` - The .nuspec package file name.
+ Default NuGet feed
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.getNuspecProperties(System.String)">
+<summary>
+ Parses nuspec metadata from a nuspec file.
+ ## Parameters
+
+  - `nuspec` - The .nuspec file content.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGet(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package, and optionally publishes it.
+ Template parameter substitution is performed when passing a .nuspec
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPublish(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams})">
+<summary>
+ Publishes a NuGet package to the nuget server.
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPack(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package based on the given .nuspec or project file.
+ Template parameter substitution is performed when passing a .nuspec
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec or project file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetPackDirectly(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.NuGet.NuGetParams,Fake.DotNet.NuGet.NuGet.NuGetParams},System.String)">
+<summary>
+ Creates a new NuGet package based on the given .nuspec or project file.
+ The .nuspec / projectfile is passed as-is (no templating is performed)
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default NuGet parameters.
+  - `nuspecOrProjectFile` - The .nuspec or project file name.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.publishSymbols(Fake.DotNet.NuGet.NuGet.NuGetParams)">
+<summary>
+ push package to symbol server (and try again if something fails)
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.pack(Fake.DotNet.NuGet.NuGet.NuGetParams,System.String)">
+<summary>
+ Creates a NuGet package without templating (including symbols package if enabled)
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.GetPackageVersion(System.String,System.String)">
+<summary>
+ Gets the version no. for a given package in the deployments folder
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.RequireExactly(System.String)">
+<summary>
+ Creates a string which tells NuGet that you require exactly this package version.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.NuGet.NuGetDefaults">
+<summary>
+ NuGet default parameters
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.NuGet">
+<summary>
+ Contains helper functions and task which allow to inspect, create and publish [NuGet](https://www.nuget.org/) packages.
+ There is also a tutorial about [nuget package creating](/dotnet-nuget.html) available.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ConfigFile">
+<summary>
+ NuGet configuration file. Default `None`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.NonInteractive">
+<summary>
+ Do not prompt for user input or confirmations. Default `true`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Prerelease">
+<summary>
+ Allows updating to prerelease versions. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Verbose">
+<summary>
+ Show verbose output while updating. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Safe">
+<summary>
+ Looks for updates with the highest version available within the same major and minor version as the installed package. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.RepositoryPath">
+<summary>
+ Folder to store packages in. Default `./packages`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Version">
+<summary>
+ Version to update to. Default `None`. Used to upgrade/downgrade to a explicit version of a package.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Ids">
+<summary>
+ Packages to update. Update all if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.Retries">
+<summary>
+ Number of retries if update fails.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.TimeOut">
+<summary>
+ Timeout for the update.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateParams.ToolPath">
+<summary>
+ Path to the nuget.exe.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Update.NugetUpdateParams">
+<summary>
+ Nuget update parameters.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Update.NugetUpdate(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Update.NugetUpdateParams,Fake.DotNet.NuGet.Update.NugetUpdateParams},System.String)">
+<summary>
+ Update packages specified in the package file.
+
+ Fails if packages are not installed; see [nuget bug](https://nuget.codeplex.com/workitem/3874).
+ Fails if packages file has no corresponding VS project; see [nuget bug](https://nuget.codeplex.com/workitem/3875).
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default parameters.
+  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Update.buildArgs(Fake.DotNet.NuGet.Update.NugetUpdateParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Update.NugetUpdateDefaults">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Update">
+<summary>
+ Contains tasks for updating NuGet packages including assembly hint paths in the project files using the [nuget.exe update command](http://docs.nuget.org/docs/reference/command-line-reference#Update_Command).
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ConfigFile">
+<summary>
+ NuGet configuration file. Default `None`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NoCache">
+<summary>
+ Disable looking up packages from local machine cache. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.NonInteractive">
+<summary>
+ Do not prompt for user input or confirmations. Default `true`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Verbosity">
+<summary>
+ Display this amount of details in the output: normal, quiet, detailed. Default `normal`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.OutputDirectory">
+<summary>
+ Specifies the directory in which packages will be installed. Default  `./packages/`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Prerelease">
+<summary>
+ Allows updating to prerelease versions. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ExcludeVersion">
+<summary>
+ If set, the destination directory will contain only the package name, not the version number. Default `false`.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Version">
+<summary>
+ The version of the package to install.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.Retries">
+<summary>
+ Number of retries if update fails.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.TimeOut">
+<summary>
+ Timeout for the update.
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallParams.ToolPath">
+<summary>
+ Path to the nuget.exe.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install.NugetInstallParams">
+<summary>
+ Nuget install parameters.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install.NugetInstallVerbosity">
+<summary>
+ Nuget install verbosity mode.
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.NugetInstall(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Install.NugetInstallParams,Fake.DotNet.NuGet.Install.NugetInstallParams},System.String)">
+<summary>
+ Installs the given package.
+
+ ## Parameters
+
+  - `setParams` - Function used to manipulate the default parameters.
+  - `packagesFile` - Path to the `*.sln`, `*.*proj` or `packages.config` file, or simply a NuGet package name
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.buildArgs(Fake.DotNet.NuGet.Install.NugetInstallParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Install.argList(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.NuGet.Install.NugetInstallDefaults">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Install">
+<summary>
+ Contains tasks for installing NuGet packages using the [nuget.exe install command](http://docs.nuget.org/docs/reference/command-line-reference#Install_Command).
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.NuGetVersionArg.Default">
+<summary>
+ Default arguments to compute next NuGet version number
+</summary>
+</member>
+<member name="T:Fake.DotNet.NuGet.Version.NuGetVersionArg">
+<summary>
+ Arguments for the next NuGet version number computing
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.nextVersion(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.NuGet.Version.NuGetVersionArg,Fake.DotNet.NuGet.Version.NuGetVersionArg})">
+<summary>
+ Compute next NuGet version number
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.getLastNuGetVersion(System.String,System.String)">
+<summary>
+ Retrieve current NuGet version number
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncMajor(Fake.Core.SemVerInfo)">
+<summary>
+ Increment major version
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncMinor(Fake.Core.SemVerInfo)">
+<summary>
+ Increment minor version
+</summary>
+</member>
+<member name="M:Fake.DotNet.NuGet.Version.IncPatch(Fake.Core.SemVerInfo)">
+<summary>
+ Increment patch version
+</summary>
+</member>
+</members>
+</doc>

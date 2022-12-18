@@ -1,0 +1,1080 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.IO.FileSystem</name></assembly>
+<members>
+<member name="M:Fake.IO.GlobbingPatternModule.getBaseDirectoryIncludes(Fake.IO.IGlobbingPattern)">
+<summary>
+ Get base include directories. Used to get a smaller set of directories from a globbing pattern.
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternModule.setBaseDir(System.String,Fake.IO.IGlobbingPattern)">
+<summary>
+ Sets a directory as baseDirectory for fileIncludes. 
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternModule.createFrom(System.String)">
+<summary>
+ Start an empty globbing pattern from the specified directory
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternModule.create(System.String)">
+<summary>
+ Include files
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternExtensions.IGlobbingPattern.IsMatch(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Checks if a particular file is matched
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternExtensions.IGlobbingPattern.SetBaseDirectory(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Sets a directory as BaseDirectory.
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternExtensions.IGlobbingPattern.ButNot(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Ignores files with the given pattern
+</summary>
+</member>
+<member name="M:Fake.IO.GlobbingPatternExtensions.IGlobbingPattern.And(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Adds the given pattern to the file includes
+</summary>
+</member>
+<member name="T:Fake.IO.Globbing.Glob">
+<summary>
+ This module contains a file pattern globbing implementation.
+ This module is part of the `Fake.IO.FileSystem` package
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Tools.findToolFolderInSubPath(System.String,System.String)">
+<summary>
+ Looks for a tool in all subfolders - returns the folder where the tool was found.
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Tools.tryFindToolFolderInSubPath(System.String)">
+<summary>
+ Looks for a tool in all subfolders - returns the folder where the tool was found
+ or None if not found.
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Tools.findToolInSubPath(System.String,System.String)">
+<summary>
+ Looks for a tool first in its default path, if not found the in ./packages/ and then
+ in all subfolders of the root folder - returns the tool file name.
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Operators.op_BangBang(System.String)">
+<summary>
+ Includes a single pattern and scans the files - !! x = AllFilesMatching x
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Operators.op_MinusMinus(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Exclude operator
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.Operators.op_PlusPlus(Fake.IO.IGlobbingPattern,System.String)">
+<summary>
+ Add Include operator
+</summary>
+</member>
+<member name="T:Fake.IO.Globbing.Operators">
+<summary>
+ Contains operators to find and process files.
+ This module is part of the `Fake.IO.FileSystem` package
+
+ ### Simple glob using as list
+
+     #r &quot;paket: nuget Fake.IO.FileSystem //&quot;
+     open Fake.IO.Globbing.Operators
+     let csProjectFiles = !! &quot;src/*.csproj&quot;
+     
+     for projectFile in csProjectFiles do
+         printf &quot;F# ProjectFile: %s&quot; projectFile
+
+ ### Combine globs
+
+     #r &quot;paket: nuget Fake.IO.FileSystem //&quot;
+     open Fake.IO.Globbing.Operators
+     let projectFiles =
+         !! &quot;src/*/*.*proj&quot;
+         ++ &quot;src/*/*.target&quot;
+         -- &quot;src/*/*.vbproj&quot;
+     
+     for projectFile in projectFiles do
+         printf &quot;ProjectFile: %s&quot; projectFile
+
+ ### Forward globs to tasks
+
+     #r &quot;paket:
+     nuget Fake.Core.Target
+     nuget Fake.IO.FileSystem //&quot;
+     open Fake.Core
+     open Fake.IO
+     open Fake.IO.Globbing.Operators
+     Target.create &quot;Clean&quot; (fun _ -&gt;
+        !! &quot;src/*/*/obj/**/*.nuspec&quot;
+        |&gt; File.deleteAll
+     )
+
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.FileIncludesModule.SetBaseDir(System.String,Fake.IO.IGlobbingPattern)">
+<summary>
+ Sets a directory as baseDirectory for fileIncludes. 
+</summary>
+</member>
+<member name="M:Fake.IO.Globbing.FileIncludesModule.Include(System.String)">
+<summary>
+ Include files
+</summary>
+</member>
+<member name="M:Fake.IO.Path.convertWindowsToCurrentPath(System.String)">
+<summary>
+ Convert the given windows path to a path in the current system
+</summary>
+</member>
+<member name="M:Fake.IO.Path.ProduceRelativePath(System.String,System.String)">
+ <summary>Produces relative path when possible to go from baseLocation to targetLocation.</summary>
+ <param name="baseLocation">The root folder</param>
+ <param name="targetLocation">The target folder</param>
+ <returns>The relative path relative to baseLocation</returns>
+ <exception cref="ArgumentNullException">base or target locations are null or empty</exception>
+</member>
+<member name="M:Fake.IO.Path.shortenCurrentDirectory(System.String)">
+<summary>
+ Replaces any occurence of the currentDirectory with .
+</summary>
+</member>
+<member name="P:Fake.IO.Path.directorySeparator">
+<summary>
+ The directory separator string. On most systems / or \
+</summary>
+</member>
+<member name="M:Fake.IO.Path.getDirectory(System.String)">
+<summary>
+ Get the directory of the specified path
+ ## Parameters
+
+ - &apos;path&apos; - The path from which the directory is retrieved.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.hasExtension(System.String,System.String)">
+<summary>
+ Tests whether the file has specified extensions (containing the leading &apos;.&apos;)
+ ## Parameters
+
+ - &apos;extension&apos; - The extension to fine containing the leading &apos;.&apos;.
+ - &apos;fileName&apos; - Name of the file from which the extension is retrieved.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.changeExtension(System.String,System.String)">
+<summary>
+ Change the extension of the file.
+ ## Parameters
+
+ - &apos;extension&apos; - The new extension containing the leading &apos;.&apos;.
+ - &apos;fileName&apos; - Name of the file from which the extension is retrieved.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.isValidPath(System.String)">
+<summary>
+ Detects whether the given path does not contains invalid characters.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.normalizeFileName(System.String)">
+<summary>
+ Normalizes a filename.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.isFile(System.String)">
+<summary>
+ Detects whether the given path is a file.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.isDirectory(System.String)">
+<summary>
+ Detects whether the given path is a directory.
+</summary>
+</member>
+<member name="M:Fake.IO.Path.combine(System.String,System.String)">
+<summary>
+ Combines two path strings using Path.Combine
+</summary>
+</member>
+<member name="M:Fake.IO.Path.combineTrimEnd(System.String,System.String)">
+<summary>
+ Combines two path strings using Path.Combine. Trims leading slashes of path2. This makes `combineTrimEnd &quot;/test&quot; &quot;/sub&quot;` return `/test/sub`
+</summary>
+</member>
+<member name="T:Fake.IO.Path">
+<summary>
+ Contains helper function which allow to deal with files and directories.
+</summary>
+</member>
+<member name="M:Fake.IO.FileInfo.contentIsEqualTo(System.IO.FileInfo,System.IO.FileInfo)">
+<summary>
+ Checks if the two files are byte-to-byte equal.
+</summary>
+</member>
+<member name="M:Fake.IO.FileInfo.|NameSections|(System.IO.FileInfo)">
+<summary>
+ Active Pattern for determining FileInfoNameSections.
+</summary>
+</member>
+<member name="M:Fake.IO.FileInfo.|FullName|(System.IO.FileInfo)">
+<summary>
+ Active Pattern for determining file name.
+</summary>
+</member>
+<member name="M:Fake.IO.FileInfo.ofPath(System.String)">
+<summary>
+ Creates a FileInfo for the given path.
+</summary>
+</member>
+<member name="M:Fake.IO.FileSystemOperators.op_LessDivideGreater(System.String,System.String)">
+<summary>
+ Combines two path strings using Path.Combine
+</summary>
+</member>
+<member name="M:Fake.IO.FileSystemOperators.op_AtAt(System.String,System.String)">
+<summary>
+ Combines two path strings using Path.Combine. Trims leading slashes of the right operand. This makes `&quot;/test&quot; @@ &quot;/sub&quot;` return `/test/sub`
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.copyRecursiveTo(System.Boolean,System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+<summary>
+ Copies the file structure recursively.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.copyRecursiveToWithFilter(System.Boolean,Microsoft.FSharp.Core.FSharpFunc{System.IO.DirectoryInfo,Microsoft.FSharp.Core.FSharpFunc{System.IO.FileInfo,System.Boolean}},System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+<summary>
+ Copies the file structure recursively, filtering files.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.setReadOnlyRecursive(System.Boolean,System.IO.DirectoryInfo)">
+<summary>
+ Sets all files in the directory readonly recursively.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.setReadOnly(System.Boolean,System.IO.DirectoryInfo)">
+<summary>
+ Sets the directory readonly 
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.recursively(Microsoft.FSharp.Core.FSharpFunc{System.IO.DirectoryInfo,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.IO.FileInfo,Microsoft.FSharp.Core.Unit},System.IO.DirectoryInfo)">
+<summary>
+ Performs the given actions on all files and subdirectories
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.ensure(System.IO.DirectoryInfo)">
+<summary>
+ Ensure that directory chain exists. Create necessary directories if necessary.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.exists(System.IO.DirectoryInfo)">
+<summary>
+ Checks if the directory exists on disk.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.containsFile(System.IO.FileInfo,System.IO.DirectoryInfo)">
+<summary>
+ Checks if the file is in a subfolder of the dir.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.isSubfolderOf(System.IO.DirectoryInfo,System.IO.DirectoryInfo)">
+<summary>
+ Checks if dir1 is a subfolder of dir2. If dir1 equals dir2 the function returns also true.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.getMatchingFilesRecursive(System.String,System.IO.DirectoryInfo)">
+<summary>
+ Finds all the files in the directory and in all subdirectories matching the search pattern.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.getMatchingFiles(System.String,System.IO.DirectoryInfo)">
+<summary>
+ Finds all the files in the directory matching the search pattern.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.getFiles(System.IO.DirectoryInfo)">
+<summary>
+ Gets all files in the directory.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.getSubDirectories(System.IO.DirectoryInfo)">
+<summary>
+ Gets all subdirectories of a given directory.
+</summary>
+</member>
+<member name="M:Fake.IO.DirectoryInfo.ofPath(System.String)">
+<summary>
+ Creates a DirectoryInfo for the given path.
+</summary>
+</member>
+<member name="M:Fake.IO.File.applyReplace(Microsoft.FSharp.Core.FSharpFunc{System.String,System.String},System.String)">
+<summary>
+ Replaces the text in the given file
+</summary>
+</member>
+<member name="M:Fake.IO.File.readAsBytes(System.String)">
+<summary>
+ Reads a file as one array of bytes
+</summary>
+</member>
+<member name="M:Fake.IO.File.readAsStringWithEncoding(System.Text.Encoding,System.String)">
+<summary>
+ Reads a file as one text
+</summary>
+</member>
+<member name="M:Fake.IO.File.append(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Appends all lines to a file line by line
+</summary>
+</member>
+<member name="M:Fake.IO.File.writeNew(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Writes a file line by line
+</summary>
+</member>
+<member name="M:Fake.IO.File.replaceContent(System.String,System.String)">
+<summary>
+ Replaces the file with the given string
+</summary>
+</member>
+<member name="M:Fake.IO.File.writeStringWithEncoding(System.Text.Encoding,System.Boolean,System.String,System.String)">
+<summary>
+ Writes a string to a file
+</summary>
+</member>
+<member name="M:Fake.IO.File.writeBytes(System.String,System.Byte[])">
+<summary>
+ Writes a byte array to a file
+</summary>
+</member>
+<member name="M:Fake.IO.File.writeWithEncoding(System.Text.Encoding,System.Boolean,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Writes a file line by line
+</summary>
+</member>
+<member name="M:Fake.IO.File.readLine(System.String)">
+<summary>
+ Reads the first line of a file. This can be helpful to read a password from file.
+</summary>
+</member>
+<member name="M:Fake.IO.File.readLineWithEncoding(System.Text.Encoding,System.String)">
+<summary>
+ Reads the first line of a file. This can be helpful to read a password from file.
+</summary>
+</member>
+<member name="M:Fake.IO.File.readWithEncoding(System.Text.Encoding,System.String)">
+<summary>
+ Reads a file line by line
+</summary>
+</member>
+<member name="M:Fake.IO.File.|EndsWith|_|(System.String,System.String)">
+<summary>
+ Active Pattern for determining file extension.
+</summary>
+</member>
+<member name="M:Fake.IO.File.deleteAll(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Deletes the given files.
+</summary>
+</member>
+<member name="M:Fake.IO.File.delete(System.String)">
+<summary>
+ Deletes a file if it exists.
+</summary>
+</member>
+<member name="M:Fake.IO.File.create(System.String)">
+<summary>
+ Creates a file if it does not exist.
+</summary>
+</member>
+<member name="M:Fake.IO.File.getVersion(System.String)">
+<summary>
+ Get the version a file. This overload throws when the file has no version, consider using tryGetVersion instead.
+ On non-windows platforms this API returns assembly metadata instead, see https://github.com/dotnet/corefx/blob/5fb98a118bb19a91e8ffb5c17ff5e7c00a4c05ee/src/System.Diagnostics.FileVersionInfo/src/System/Diagnostics/FileVersionInfo.Unix.cs#L20-L28
+ ## Parameters
+
+  - &apos;fileName&apos; - Name of file from which the version is retrieved. The path can be relative.
+</summary>
+</member>
+<member name="M:Fake.IO.File.tryGetVersion(System.String)">
+<summary>
+ Tries to get the version a file. Throws FileNotFoundException if the file doesn&apos;t exist.
+ Returns None if the file doesn&apos;t contain a FileVersion component.
+ On non-windows platforms this API returns assembly metadata instead, see https://github.com/dotnet/corefx/blob/5fb98a118bb19a91e8ffb5c17ff5e7c00a4c05ee/src/System.Diagnostics.FileVersionInfo/src/System/Diagnostics/FileVersionInfo.Unix.cs#L20-L28
+ ## Parameters
+
+  - &apos;fileName&apos; - Name of file from which the version is retrieved. The path can be relative.
+</summary>
+</member>
+<member name="M:Fake.IO.File.allExist(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Checks if all given files exist.
+</summary>
+</member>
+<member name="M:Fake.IO.File.checkExists(System.String)">
+<summary>
+ Raises an exception if the file doesn&apos;t exist on disk.
+</summary>
+</member>
+<member name="P:Fake.IO.File.getEncodingOrUtf8WithoutBom">
+<summary>
+ Get the encoding from the file or utf8 without BOM if unknown or the file doesn&apos;t exist
+</summary>
+</member>
+<member name="M:Fake.IO.File.getEncodingOrDefault(System.Text.Encoding,System.String)">
+<summary>
+ Gets the encoding from the file or the default of the file doesn&apos;t exist
+</summary>
+</member>
+<member name="M:Fake.IO.File.exists(System.String)">
+<summary>
+ Checks if the file exists on disk.
+</summary>
+</member>
+<member name="P:Fake.IO.File.utf8WithoutBom">
+<summary>
+ see https://stackoverflow.com/questions/2502990/create-text-file-without-bom
+</summary>
+</member>
+<member name="M:Fake.IO.Directory.delete(System.String)">
+<summary>
+ Deletes a directory if it exists (including all contained elements).
+</summary>
+</member>
+<member name="M:Fake.IO.Directory.findFirstMatchingFile(System.String,System.String)">
+<summary>
+ Gets the first file in the directory matching the search pattern or throws an error if nothing was found.
+</summary>
+</member>
+<member name="M:Fake.IO.Directory.tryFindFirstMatchingFile(System.String,System.String)">
+<summary>
+ Gets the first file in the directory matching the search pattern as an option value.
+</summary>
+</member>
+<member name="P:Fake.IO.Directory.create">
+<summary>
+ Creates a directory if it does not exist.
+</summary>
+</member>
+<member name="M:Fake.IO.Directory.ensure(System.String)">
+<summary>
+ Checks if the given directory exists. If not then this functions creates the directory.
+</summary>
+</member>
+<member name="M:Fake.IO.FileSystemInfo.|File|Directory|(System.IO.FileSystemInfo)">
+<summary>
+ Active pattern which discriminates between files and directories.
+</summary>
+</member>
+<member name="M:Fake.IO.FileSystemInfo.setReadOnly(System.Boolean,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Sets all given files or directories readonly.
+</summary>
+</member>
+<member name="M:Fake.IO.FileSystemInfo.ofPath(System.String)">
+<summary>
+ Creates a FileInfo or a DirectoryInfo for the given path
+</summary>
+</member>
+<member name="M:Fake.IO.Templates.replaceInFiles(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replaces the templates with the given replacements
+</summary>
+</member>
+<member name="P:Fake.IO.Templates.saveFiles">
+<summary>
+ Saves all files (lazy - file by file!)
+</summary>
+</member>
+<member name="M:Fake.IO.Templates.replaceKeywords``2(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<summary>
+ Replaces a bunch of the keywords in all files (lazy - line by line!)
+</summary>
+</member>
+<member name="M:Fake.IO.Templates.load(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Loads all templates (lazy - line by line!)
+</summary>
+</member>
+<member name="T:Fake.IO.Templates">
+<summary>
+ NOTE: Maybe this should be an extra module?
+ Contains basic templating functions. Used in other helpers.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.mv(System.String,System.String)">
+<summary>
+ Like &quot;mv&quot; in a shell. Moves/renames a file
+ &lt;param name=&quot;src&quot;&gt;The source&lt;/param&gt;
+ &lt;param name=&quot;dest&quot;&gt;The destination&lt;/param&gt;
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.popd">
+<summary>
+ Restore the previous directory stored in the stack
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.pushd(System.String)">
+<summary>
+ Store the current directory in the directory stack before changing to a new one
+</summary>
+</member>
+<member name="P:Fake.IO.Shell.dirStack">
+<summary>
+ The stack of directories operated on by pushd and popd
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.pwd">
+<summary>
+ Gets working directory
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.cd(System.String)">
+<summary>
+ Changes working directory
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.chdir(System.String)">
+<summary>
+ Changes working directory
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.cp(System.String,System.String)">
+<summary>
+ Like &quot;cp&quot; in a shell. Copies a single file.
+ &lt;param name=&quot;src&quot;&gt;The source&lt;/param&gt;
+ &lt;param name=&quot;dest&quot;&gt;The destination&lt;/param&gt;
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.cp_r(System.String,System.String)">
+ <summary>
+ Like "cp -r" in a shell. Copies a file or directory recursively.
+ </summary>
+ <param name="src">The source</param>
+ <param name="dest">The destination</param>
+</member>
+<member name="M:Fake.IO.Shell.mkdir(System.String)">
+<summary>
+ Creates a directory if it doesn&apos;t exist.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.rm_rf(System.String)">
+<summary>
+ Like &quot;rm -rf&quot; in a shell. Removes files recursively, ignoring nonexisting files
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.rm(System.String)">
+<summary>
+ Deletes a file if it exists
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.RegexReplaceInFilesWithEncoding(System.String,System.String,System.Text.Encoding,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replace all occurences of the regex pattern with the given replacement in the specified files
+ ## Parameters
+
+ - `pattern` - The string to search for a match
+ - `replacement` - The replacement string
+ - `encoding` - The encoding to use when reading and writing the files
+ - `files` - The paths of the files to process
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.RegexReplaceInFileWithEncoding(System.String,System.String,System.Text.Encoding,System.String)">
+<summary>
+ Replace all occurences of the regex pattern with the given replacement in the specified file
+ ## Parameters
+
+ - `pattern` - The string to search for a match
+ - `replacement` - The replacement string
+ - `encoding` - The encoding to use when reading and writing the file
+ - `file` - The path of the file to process
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.ReplaceInFiles(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replaces all occurences of the patterns in the given files with the given replacements.
+ ## Parameters
+
+  - `replacements` - A sequence of tuples with the patterns and the replacements.
+  - `files` - The files to process.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.WriteConfigFile``2(System.String,System.Collections.Generic.IEnumerable{System.Tuple{``0,``1}})">
+<summary>
+ Creates a config file with the parameters as &quot;key;value&quot; lines
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.MoveFile(System.String,System.String)">
+<summary>
+ Moves a single file to the target and overwrites the existing file.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `fileName` - The FileName.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyRecursive2(Fake.IO.Shell.CopyRecursiveMethod,System.String,System.String)">
+<summary>
+ Copies the file structure recursively.
+ ## Parameters
+
+  - `method` - the method to decide which files get copied
+  - `dir` - The source directory.
+  - `outputDir` - The target directory.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyRecursive(System.String,System.String,System.Boolean)">
+<summary>
+ Copies the file structure recursively.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.TestFile(System.String)">
+<summary>
+ Checks if the file exists
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.TestDir(System.String)">
+<summary>
+ Checks if the directory exists
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.GeneratePatch(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Checks the srcFiles for changes to the last release.
+ ## Parameters
+
+  - `lastReleaseDir` - The directory of the last release.
+  - `patchDir` - The target directory.
+  - `srcFiles` - The source files.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.GeneratePatchWithFindOldFileFunction(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,System.String}})">
+<summary>
+ Checks the srcFiles for changes to the last release.
+ ## Parameters
+
+  - `lastReleaseDir` - The directory of the last release
+  - `patchDir` - The target directory
+  - `srcFiles` - The source files
+  - `findOldFileF` - A function which finds the old file
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CompareFiles(System.Boolean,System.String,System.String)">
+<summary>
+ Compares the given files for changes.
+ If delete is set to true then equal files will be removed.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.AppendTextFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Appends all given files to one file.
+ ## Parameters
+
+  - `newFileName` - The target FileName.
+  - `files` - The original FileNames as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.AppendTextFilesWithEncoding(System.Text.Encoding,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Appends all given files to one file.
+ ## Parameters
+
+  - `newFileName` - The target FileName.
+  - `files` - The original FileNames as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.DeleteDirs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Deletes multiple directories
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.DeleteDir(System.String)">
+<summary>
+ Compat
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CleanDirs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Cleans multiple directories
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CleanDir(System.String)">
+<summary>
+ Cleans a directory by removing all files and sub-directories.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyDir(System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,System.Boolean})">
+<summary>
+ Copies a directory recursivly. If the target directory does not exist, it will be created.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `source` - The source directory.
+  - `filterFile` - A file filter predicate.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files to the target - Alias for Copy
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The orginal file names.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.SilentCopy(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies a list of files to the specified directory without any output.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - List of files to copy.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.Rename(System.String,System.String)">
+<summary>
+ Renames the file or directory to the target name.
+ ## Parameters
+
+  - `target` - The target file or directory name.
+  - `fileName` - The orginal file or directory name.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyCached(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files from a cache folder.
+ If the files are not cached or the original files have a different write time the cache will be refreshed.
+ ## Parameters
+
+  - `target` - The target FileName.
+  - `cacheDir` - The cache directory.
+  - `files` - The orginal files.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyTo(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the given files to the target.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The original file names as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.Copy(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files to the target.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The original file names as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyFileWithSubfolder(System.String,System.String,System.String)">
+<summary>
+ Copies a single file to the target folder preserving the folder structure
+ starting from the specified base folder.
+ ## Parameters
+
+  - `baseDir` - The base directory.
+  - `target` - The target directory.
+  - `fileName` - The file name.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyFileIntoSubFolder(System.String,System.String)">
+<summary>
+ Copies a single file to a relative subfolder of the target.
+ ## Parameters
+
+  - `target` - The target directory
+  - `fileName` - The fileName
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.CopyFile(System.String,System.String)">
+<summary>
+ Copies a single file to the target and overwrites the existing file.
+ ## Parameters
+
+  - `target` - The target directory or file.
+  - `fileName` - The FileName.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.regexReplaceInFilesWithEncoding(System.String,System.String,System.Text.Encoding,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replace all occurences of the regex pattern with the given replacement in the specified files
+ ## Parameters
+
+ - `pattern` - The string to search for a match
+ - `replacement` - The replacement string
+ - `encoding` - The encoding to use when reading and writing the files
+ - `files` - The paths of the files to process
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.regexReplaceInFileWithEncoding(System.String,System.String,System.Text.Encoding,System.String)">
+<summary>
+ Replace all occurences of the regex pattern with the given replacement in the specified file
+ ## Parameters
+
+ - `pattern` - The string to search for a match
+ - `replacement` - The replacement string
+ - `encoding` - The encoding to use when reading and writing the file
+ - `file` - The path of the file to process
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.replaceInFiles(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Replaces all occurences of the patterns in the given files with the given replacements.
+ ## Parameters
+
+  - `replacements` - A sequence of tuples with the patterns and the replacements.
+  - `files` - The files to process.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.writeConfigFile``2(System.String,System.Collections.Generic.IEnumerable{System.Tuple{``0,``1}})">
+<summary>
+ Creates a config file with the parameters as &quot;key;value&quot; lines
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.moveFile(System.String,System.String)">
+<summary>
+ Moves a single file to the target and overwrites the existing file.
+ If `fileName` is a directory the functions does nothing.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `fileName` - The FileName.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyRecursive2(Fake.IO.Shell.CopyRecursiveMethod,System.String,System.String)">
+<summary>
+ Copies the file structure recursively.
+ ## Parameters
+
+  - `method` - the method to decide which files get copied
+  - `dir` - The source directory.
+  - `outputDir` - The target directory.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyRecursive(System.String,System.String,System.Boolean)">
+<summary>
+ Copies the file structure recursively.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.testFile(System.String)">
+<summary>
+ Checks if the file exists
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.testDir(System.String)">
+<summary>
+ Checks if the directory exists
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.generatePatch(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Checks the srcFiles for changes to the last release.
+ ## Parameters
+
+  - `lastReleaseDir` - The directory of the last release.
+  - `patchDir` - The target directory.
+  - `srcFiles` - The source files.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.generatePatchWithFindOldFileFunction(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,System.String}})">
+<summary>
+ Checks the srcFiles for changes to the last release.
+ ## Parameters
+
+  - `lastReleaseDir` - The directory of the last release
+  - `patchDir` - The target directory
+  - `srcFiles` - The source files
+  - `findOldFileF` - A function which finds the old file
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.compareFiles(System.Boolean,System.String,System.String)">
+<summary>
+ Compares the given files for changes.
+ If delete is set to true then equal files will be removed.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.appendTextFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Appends all given files to one file.
+ ## Parameters
+
+  - `newFileName` - The target FileName.
+  - `files` - The original FileNames as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.appendTextFilesWithEncoding(System.Text.Encoding,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Appends all given files to one file.
+ ## Parameters
+
+  - `newFileName` - The target FileName.
+  - `files` - The original FileNames as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.deleteDirs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Deletes multiple directories
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.deleteDir(System.String)">
+<summary>
+ Compat
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.cleanDirs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Cleans multiple directories
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.cleanDir(System.String)">
+<summary>
+ Cleans a directory by removing all files and sub-directories.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyDir(System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,System.Boolean})">
+<summary>
+ Copies a directory recursivly. If the target directory does not exist, it will be created.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `source` - The source directory.
+  - `filterFile` - A file filter predicate.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyFilesWithSubFolder(System.String,Fake.IO.IGlobbingPattern)">
+<summary>
+ Copies the given glob-matches into another directory by leaving relative paths in place based on the globbing base-directory
+
+ ## Sample
+ 
+      !! &quot;**/My*Glob*.exe&quot;
+      |&gt; GlobbingPattern.setBaseDir &quot;baseDir&quot;
+      |&gt; Shell.copyFilesWithSubFolder &quot;targetDir&quot;
+
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyFiles(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files to the target - Alias for Copy
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The orginal file names.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.silentCopy(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies a list of files to the specified directory without any output.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - List of files to copy.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.rename(System.String,System.String)">
+<summary>
+ Renames the file or directory to the target name.
+ ## Parameters
+
+  - `target` - The target file or directory name.
+  - `fileName` - The orginal file or directory name.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyCached(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files from a cache folder.
+ If the files are not cached or the original files have a different write time the cache will be refreshed.
+ ## Parameters
+
+  - `target` - The target FileName.
+  - `cacheDir` - The cache directory.
+  - `files` - The orginal files.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyTo(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the given files to the target.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The original file names as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copy(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Copies the files to the target.
+ ## Parameters
+
+  - `target` - The target directory.
+  - `files` - The original file names as a sequence.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyFileWithSubfolder(System.String,System.String,System.String)">
+<summary>
+ Copies a single file to the target folder preserving the folder structure
+ starting from the specified base folder.
+ ## Parameters
+
+  - `baseDir` - The base directory.
+  - `target` - The target directory.
+  - `fileName` - The file name.
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyFileIntoSubFolder(System.String,System.String)">
+<summary>
+ Copies a single file to a relative subfolder of the target.
+ ## Parameters
+
+  - `target` - The target directory
+  - `fileName` - The fileName
+</summary>
+</member>
+<member name="M:Fake.IO.Shell.copyFile(System.String,System.String)">
+<summary>
+ Copies a single file to the target and overwrites the existing file.
+ ## Parameters
+
+  - `target` - The target directory or file.
+  - `fileName` - The FileName.
+</summary>
+</member>
+<member name="M:Fake.IO.ChangeWatcher.runWithOptions(Microsoft.FSharp.Core.FSharpFunc{Fake.IO.ChangeWatcher.Options,Fake.IO.ChangeWatcher.Options},Microsoft.FSharp.Core.FSharpFunc{System.Collections.Generic.IEnumerable{Fake.IO.FileChange},Microsoft.FSharp.Core.Unit},Fake.IO.IGlobbingPattern)">
+<summary>
+ Watches for changes in the matching files.
+ Returns an IDisposable which allows to dispose all internally used FileSystemWatchers.
+
+ ## Parameters
+  - `onChange` - function to call when a change is detected.
+  - `fileIncludes` - The glob pattern for files to watch for changes.
+</summary>
+</member>
+<member name="T:Fake.IO.ChangeWatcher">
+<summary>
+ This module is part of the `Fake.IO.FileSystem` package
+
+ ## Sample
+
+     Target.create &quot;Watch&quot; (fun _ -&gt;
+         use watcher = !! &quot;c:/projects/watchDir/*.txt&quot; |&gt; ChangeWatcher.run (fun changes -&gt;
+             // do something
+         )
+
+         System.Console.ReadLine() |&gt; ignore
+
+         watcher.Dispose() // if you need to cleanup the watcher.
+     )
+
+</summary>
+</member>
+</members>
+</doc>

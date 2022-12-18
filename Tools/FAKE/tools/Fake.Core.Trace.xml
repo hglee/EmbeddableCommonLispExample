@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.Trace</name></assembly>
+<members>
+<member name="M:Fake.Core.ConsoleTraceListener.Fake.Core.ITraceListener.Write(Fake.Core.TraceData)">
+<summary>
+ Writes the given message to the Console.
+</summary>
+</member>
+<member name="T:Fake.Core.ConsoleTraceListener">
+<summary>
+ Implements a TraceListener for System.Console.
+ ## Parameters
+  - `importantMessagesToStdErr` - Defines whether to trace important messages to StdErr.
+  - `colorMap` - A function which maps TracePriorities to ConsoleColors.
+</summary>
+</member>
+<member name="T:Fake.Core.ITraceListener">
+<summary>
+ Defines a TraceListener interface
+ Note: Please contribute implementations to the fake repository, as external implementations are not supported.
+</summary>
+</member>
+<member name="T:Fake.Core.TraceData.OpenTag">
+<summary>
+ Happens when a tag (Task, Target, Test, ...) has started.
+</summary>
+</member>
+<member name="T:Fake.Core.TraceData">
+<summary>
+ Defines Tracing information for TraceListeners
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.TagStatus">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.TestStatus">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.ImportData">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.NunitDataVersion">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.DotNetCoverageTool">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="T:Fake.Core.KnownTags">
+<summary>
+ Note: Adding new cases to this type is not considered a breaking change!
+ Please consider not using a match on this type in code external to the fake repository.
+</summary>
+</member>
+<member name="M:Fake.Core.CoreTracing.postMessage(Fake.Core.TraceData)">
+<summary>
+ Allows to post messages to all trace listeners
+</summary>
+</member>
+<member name="P:Fake.Core.CoreTracing.traceListenersVar">
+<summary>
+ A List with all registered listeners
+</summary>
+</member>
+<member name="P:Fake.Core.CoreTracing.defaultConsoleTraceListener">
+<summary>
+ The default TraceListener for Console.
+</summary>
+</member>
+<member name="M:Fake.Core.ConsoleWriter.colorMap(Fake.Core.TraceData)">
+<summary>
+ A default color map which maps TracePriorities to ConsoleColors
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.logItems(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Logs the given files with the message.
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.logToConsole(System.String,Fake.Core.Trace.EventLogEntryType)">
+<summary>
+ Traces the message to the console
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.useWith``1(System.Boolean,Microsoft.FSharp.Core.FSharpFunc{Fake.Core.Trace.ISafeDisposable,``0},Fake.Core.Trace.ISafeDisposable)">
+<summary>
+ Allows automatic or manual tracing around a function being run
+ If in automatic success mode and no exception is thrown then trace is marked as success
+ Any exception thrown will result in a mark failed and exception re-thrown 
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceTask(System.String,System.String)">
+<summary>
+ Wrap functions in a &apos;use&apos; of this function     
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTask(System.String)">
+<summary>
+ Traces the end of a task
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTaskUnsafe(System.String)">
+<summary>
+ Traces the end of a task
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTaskUnsafeEx(Fake.Core.TagStatus,System.String)">
+<summary>
+ Traces the end of a task
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartTask(System.String,System.String)">
+<summary>
+ Traces the begin of a task
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartTaskUnsafe(System.String,System.String)">
+<summary>
+ Traces the begin of a task
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTarget(System.String)">
+<summary>
+ Traces the end of a target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTargetUnsafe(System.String)">
+<summary>
+ Traces the end of a target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndFailureTargetUnsafeEx(Fake.Core.TagStatus,System.String)">
+<summary>
+ Traces the end of a failure target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndFinalTargetUnsafeEx(Fake.Core.TagStatus,System.String)">
+<summary>
+ Traces the end of a final target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEndTargetUnsafeEx(Fake.Core.TagStatus,System.String)">
+<summary>
+ Traces the end of a target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartTarget(System.String,System.String,System.String)">
+<summary>
+ Traces the begin of a target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartFailureTargetUnsafe(System.String,System.String,System.String)">
+<summary>
+ Traces the begin of a failure target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartFinalTargetUnsafe(System.String,System.String,System.String)">
+<summary>
+ Traces the begin of a final target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceStartTargetUnsafe(System.String,System.String,System.String)">
+<summary>
+ Traces the begin of a target
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.closeTag(Fake.Core.KnownTags)">
+<summary>
+ Removes an opening tag from the internal tag stack
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.closeTagUnsafeEx(Fake.Core.TagStatus,Fake.Core.KnownTags)">
+<summary>
+ Removes an opening tag from the internal tag stack
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.openTag(Fake.Core.KnownTags,System.String)">
+<summary>
+ Puts an opening tag on the internal tag stack
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.openTagUnsafe(Fake.Core.KnownTags,System.String)">
+<summary>
+ Puts an opening tag on the internal tag stack
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceHeader(System.String)">
+<summary>
+ Traces a header
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceLine">
+<summary>
+ Traces a line
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceEnvironmentVariables">
+<summary>
+ Traces the EnvironmentVariables
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceException(System.Exception)">
+<summary>
+ Traces an exception details (in red)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.exceptionAndInnersToString(System.Exception)">
+<summary>
+ Converts an exception and its inner exceptions to a nice string.
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceErrorfn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes an error message to stderr (in red) 
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceError(System.String)">
+<summary>
+ Traces an error (in red)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceFAKE``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a trace to the command line (in yellow)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceImportantfn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a message to stderr (in yellow) 
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceImportant(System.String)">
+<summary>
+ Writes a trace to stderr (in yellow)  
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.traceVerbose(System.String)">
+<summary>
+ Writes a trace to the command line (in green) if the verbose mode is activated.
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.tracef``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a message to the command line (in green) and without a line break
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.tracefn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Writes a message to the command line (in green)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.trace(System.String)">
+<summary>
+ Writes a trace to the command line (in green)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.logVerbosefn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Logs the specified string if the verbose mode is activated.
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.logf``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Logs the specified message (without line break)
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.logfn``1(Microsoft.FSharp.Core.PrintfFormat{``0,Microsoft.FSharp.Core.Unit,System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Logs the specified message
+</summary>
+</member>
+<member name="M:Fake.Core.Trace.log(System.String)">
+<summary>
+ Logs the specified string        
+</summary>
+</member>
+<member name="T:Fake.Core.Trace">
+<summary>
+ This module contains function which allow to trace build output
+</summary>
+</member>
+</members>
+</doc>

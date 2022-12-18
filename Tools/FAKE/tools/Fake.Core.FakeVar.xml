@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.FakeVar</name></assembly>
+<members>
+<member name="M:Fake.Core.FakeVar.defineOrNone``1(System.String)">
+<summary>
+ Define a named FakeVar providing the get, remove and set
+ Will always return &apos;None&apos; when no context is set and &apos;throw&apos; on set
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.defineAllowNoContext``1(System.String)">
+<summary>
+ Define a named FakeVar providing the get, remove and set
+ Will use a local variable if there is no context
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.define``1(System.String)">
+<summary>
+ Define a named FakeVar providing the get, remove and set
+ And of the functions will fail if there is no context
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.set``1(System.String,``0)">
+<summary>
+ Sets value of a FakeVar
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.setFrom``1(System.String,``0,Fake.Core.Context.FakeExecutionContext)">
+<summary>
+ Sets value of a FakeVar
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.remove(System.String)">
+<summary>
+ Removes a FakeVar by name
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.removeFrom(System.String,Fake.Core.Context.FakeExecutionContext)">
+<summary>
+ Removes a FakeVar by name
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.getOrDefault``1(System.String,``0)">
+<summary>
+ Gets a strongly typed FakeVar by name will return default value if variable is not found
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.getOrFail``1(System.String)">
+<summary>
+ Gets a strongly typed FakeVar by name will fail if variable is not found
+</summary>
+</member>
+<member name="M:Fake.Core.FakeVar.get``1(System.String)">
+<summary>
+ Gets a strongly typed FakeVar by name returning an option type
+</summary>
+</member>
+<member name="T:Fake.Core.FakeVar">
+<summary>
+ This module contains helpers for managing build time variables
+</summary>
+</member>
+</members>
+</doc>

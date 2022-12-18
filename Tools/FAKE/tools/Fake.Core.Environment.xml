@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.Environment</name></assembly>
+<members>
+<member name="T:Fake.Core.TraceMode">
+<summary>
+ The trace mode option.
+</summary>
+</member>
+<member name="T:Fake.Core.BuildServer">
+<summary>
+ The server type option.
+</summary>
+</member>
+<member name="T:Fake.Core.Environment.EnvironTarget">
+<summary>
+ Type alias for System.EnvironmentVariableTarget
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getNuGetPackagesCacheFolder">
+<summary>
+ Returns the path to the user-specific nuget packages folder
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getDefaultEncoding">
+<summary>
+ Contains the IO encoding which is given via build parameter &quot;encoding&quot; or the default encoding if no encoding was specified.
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getTargetPlatformDir(System.String)">
+<summary>
+ Gets the local directory for the given target platform
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getNewestTool``1(System.Collections.Generic.IEnumerable{``0})">
+<summary>
+ Helper function to help find framework or sdk tools from the 
+ newest toolkit available
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.sdkBasePath">
+<summary>
+ Base path for getting tools from windows SDKs
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.TargetPlatformPrefix">
+<summary>
+ The path of the current target platform
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.pathDirectories">
+<summary>
+ Gets the list of valid directories included in the PATH environment variable.
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.monoVersion">
+<summary>
+ required sometimes to workaround mono crashes
+ http://stackoverflow.com/a/8414517/1269722
+ Note: Only given when we are running on mono,
+ represents the version of the mono runtime we
+ are currently running on.
+ In netcore world you can retrieve the mono version in the
+ environment (PATH) via Fake.Core.Process.Mono.monoVersion
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.isMono">
+<summary>
+ Determines if the current FAKE runner is being run via mono.  With the FAKE 5 runner, this will always be false
+ Todo: Detect mono on windows
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.isWindows">
+<summary>
+ Determines if the current system is a Windows system
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.isLinux">
+<summary>
+ Determines if the current system is a Linux system
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.isMacOS">
+<summary>
+ Determines if the current system is a MacOs system
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.isUnix">
+<summary>
+ Determines if the current system is an Unix system.
+ See http://www.mono-project.com/docs/faq/technical/#how-to-detect-the-execution-platform
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.SystemRoot">
+<summary>
+ The system root environment variable. Typically &quot;C:\Windows&quot;
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.ProgramFilesX86">
+<summary>
+ The path of Program Files (x86)
+ It seems this covers all cases where PROCESSOR\_ARCHITECTURE may misreport and the case where the other variable 
+ PROCESSOR\_ARCHITEW6432 can be null
+</summary>
+</member>
+<member name="P:Fake.Core.Environment.ProgramFiles">
+<summary>
+ The path of the &quot;Program Files&quot; folder - might be x64 on x64 machine
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getBuildParam(System.String)">
+<summary>
+ Returns the value of the build parameter with the given name if it was set and otherwise an empty string
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.getBuildParamOrDefault(System.String,System.String)">
+<summary>
+ Returns the value of the build parameter with the given name if it was set and otherwise the given default value
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.hasBuildParam(System.String)">
+<summary>
+ Returns if the build parameter with the given name was set
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.hasEnvironVar(System.String)">
+<summary>
+ Returns if the build parameter with the given name was set
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.splitEnvironVar(System.String)">
+<summary>
+ Splits the entries of an environment variable and removes the empty ones.
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVarOrNone(System.String)">
+<summary>
+ Retrieves the environment variable or None
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVarAsBool(System.String)">
+<summary>
+ Retrieves the environment variable with the given name or returns the false if no value was set
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVarAsBoolOrDefault(System.String,System.Boolean)">
+<summary>
+ Retrieves the environment variable with the given name or returns the default bool if no value was set
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVarOrFail(System.String)">
+<summary>
+ Retrieves the environment variable with the given name or fails if not found
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVarOrDefault(System.String,System.String)">
+<summary>
+ Retrieves the environment variable with the given name or returns the default if no value was set
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.setBuildParam(System.String,System.String)">
+<summary>
+ Sets the build parameter with the given name for the current process.
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.clearEnvironVar(System.String)">
+<summary>
+ Clears the environment variable with the given name for the current process.
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.setEnvironVar(System.String,System.String)">
+<summary>
+ Sets the environment variable with the given name
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVars">
+<summary>
+ Retrieves all environment variables from the given target
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.environVar(System.String)">
+<summary>
+ Retrieves the environment variable with the given name
+</summary>
+</member>
+<member name="M:Fake.Core.Environment.Internal.parseMonoDisplayName(System.String)">
+<summary>
+ Internal, do not use.
+ We use this internally for parsing the output of mono --version
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.isLocalBuild">
+<summary>
+ Is true when the current build is a local build.
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.buildVersion">
+<summary>
+ The current build version as detected from the current build server.
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.buildServer">
+<summary>
+ The current build server
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.appVeyorBuildVersion">
+<summary>
+ AppVeyor build number
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.ccBuildLabel">
+<summary>
+ CruiseControl.NET Build label
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.jenkinsBuildNumber">
+<summary>
+ Build number retrieved from Jenkins
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.gitHubActionsBuildNumber">
+<summary>
+ Build number retrieved from GitHub Actions
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.isGitHubActionsBuild">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.gitlabCIBuildNumber">
+<summary>
+ Build number retrieved from GitLab CI
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.isGitlabCI">
+<summary>
+ Checks if we are on GitLab CI
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.travisBuildNumber">
+<summary>
+ Build number retrieved from Travis
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.tcBuildNumber">
+<summary>
+ Build number retrieved from TeamCity
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.tfBuildNumber">
+<summary>
+ Build number retrieved from Team Foundation
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.isTFBuild">
+<summary>
+ Checks if we are on Team Foundation
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.isBambooBuild">
+<summary>
+ Checks if we are on Bamboo
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.bambooBuildNumber">
+<summary>
+ Build number retrieved from Bamboo
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.xmlOutputFile">
+<summary>
+ Defines the XML output file - used for build servers like CruiseControl.NET.
+ This output file can be specified by using the *logfile* build parameter.
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.localBuildLabel">
+<summary>
+ A constant label for local builds
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.BuildServerModule.verbose">
+<summary>
+ Defines if FAKE will use verbose tracing.
+ This flag can be specified by setting the *verbose* build parameter.
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.DotNet.MSBuild</name></assembly>
+<members>
+<member name="P:Fake.DotNet.MSBuildParams.DistributedLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/dl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.Loggers">
+<summary>
+ corresponds to the msbuild option &apos;/l&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.BinaryLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/bl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.FileLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/fl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.DisableInternalBinLog">
+<summary>
+ Fake attaches a binlog-logger in order to report errors and warnings. You can disable this behavior with this flag
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.ConsoleLogParameters">
+<summary>
+ corresponds to the msbuild option &apos;/consoleloggerparameters&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.DoRestore">
+<summary>
+ Execute a restore before executing the targets (/restore flag)
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.MaxCpuCount">
+<summary>
+ corresponds to the msbuild option &apos;/m&apos;:
+  - &apos;None&apos; will omit the option.
+  - &apos;Some None&apos; will emit &apos;/m&apos;.
+  - &apos;Some 2&apos; will emit &apos;/m:2&apos;.
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildParams.ToolPath">
+<summary>
+ Set the MSBuild executable to use. Defaults to the latest installed MSBuild.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuildParams.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuildParams.Create">
+<summary>
+ Defines a default for MSBuild task parameters
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildParams">
+<summary>
+ A type for MSBuild task parameters
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildFileLoggerConfig">
+<summary>
+ A type for MSBuild configuration
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.LogParameter">
+<summary>
+ Other currently not supported parameter.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.EnableMPLogging">
+<summary>
+ Enable the multiprocessor logging style even when running in non-multiprocessor mode. This logging style is on by default.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.DisableMPLogging">
+<summary>
+ Disable the multiprocessor logging style of output when running in non-multiprocessor mode.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ForceConsoleColor">
+<summary>
+ Undocumented switch to force ansi colors.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.DisableConsoleColor">
+<summary>
+ Use the default console colors for all logging messages.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ForceNoAlign">
+<summary>
+ Don&apos;t align the text to the size of the console buffer.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ShowEventId">
+<summary>
+ Show the event ID for each started event, finished event, and message.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ShowTimestamp">
+<summary>
+ Show the timestamp as a prefix to any message.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ShowCommandLine">
+<summary>
+ Show `TaskCommandLineEvent` messages.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.NoItemAndPropertyList">
+<summary>
+ Don&apos;t show the list of items and properties that would appear at the start of each project build if the verbosity level is set to `diagnostic`.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.WarningsOnly">
+<summary>
+ Show only warnings.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.ErrorsOnly">
+<summary>
+ Show only errors.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.NoSummary">
+<summary>
+ Don&apos;t show the error and warning summary at the end.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.Summary">
+<summary>
+ Show the error and warning summary at the end.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.PerformanceSummary">
+<summary>
+ Show the time that’s spent in tasks, targets, and projects.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter.Append">
+<summary>
+ Determines whether the build log is appended to the log file or overwrites it. When you set the switch, the build log is appended to the log file. When the switch is not present, the contents of an existing log file are overwritten.
+ If you include the append switch, no matter whether it is set to true or false, the log is appended. If you do not include the append switch, the log is overwritten.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildLogParameter">
+<summary>
+ MSBuild log option
+ See https://docs.microsoft.com/de-de/visualstudio/msbuild/msbuild-command-line-reference?view=vs-2015
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildVerbosity">
+<summary>
+ MSBuild verbosity option
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildProject">
+<summary>
+ A type to represent MSBuild project files.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildException">
+<summary>
+ An exception type to signal build errors.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuildBinLog">
+<summary>
+ Analyse a binlog and emit proper CI messages
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.DistributedLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/dl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.Loggers">
+<summary>
+ corresponds to the msbuild option &apos;/l&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.ConsoleLogParameters">
+<summary>
+ corresponds to the msbuild option &apos;/consoleloggerparameters&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.BinaryLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/bl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.FileLoggers">
+<summary>
+ corresponds to the msbuild option &apos;/fl&apos;
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.DisableInternalBinLog">
+<summary>
+ Fake attaches a binlog-logger in order to report errors and warnings. You can disable this behavior with this flag
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.DoRestore">
+<summary>
+ Execute a restore before executing the targets (/restore flag)
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.CliArguments.MaxCpuCount">
+<summary>
+ corresponds to the msbuild option &apos;/m&apos;:
+  - &apos;None&apos; will omit the option.
+  - &apos;Some None&apos; will emit &apos;/m&apos;.
+  - &apos;Some 2&apos; will emit &apos;/m:2&apos;.
+</summary>
+</member>
+<member name="T:Fake.DotNet.MSBuild.CliArguments">
+<summary>
+ A type for MSBuild task parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.buildWebsites(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String)">
+<summary>
+ Builds the given web project files with debug configuration and copies them to the given websiteDir.
+ ## Parameters
+  - `outputPath` - The output path.
+  - `projectFiles` - The project file paths.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.buildWebsitesConfig(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given web project files in specified configuration and copies them to the given outputPath.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - The output path.
+  - `configuration` - MSBuild configuration.
+  - `projectFiles` - The project file paths.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.buildWebsite(System.String,System.String)">
+<summary>
+ Builds the given web project file with debug configuration and copies it to the given outputPath.
+ ## Parameters
+  - `outputPath` - The output path.
+  - `projectFile` - The project file path.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.buildWebsiteConfig(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,System.String)">
+<summary>
+ Builds the given web project file in the specified configuration and copies it to the given outputPath.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - The output path.
+  - `configuration` - MSBuild configuration.
+  - `projectFile` - The project file path.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.runReleaseExt(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files or solution files in release mode and collects the output files.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - If it is null or empty then the project settings are used.
+  - `properties` - A list with tuples of property name and property values.
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.runWithDefaults(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files or solution files in release mode to the default outputs.
+ ## Parameters
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.runRelease(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files or solution files and collects the output files.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - If it is null or empty then the project settings are used.
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.runDebug(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files or solution files and collects the output files.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - If it is null or empty then the project settings are used.
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.run(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files or solution files and collects the output files.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - If it is null or empty then the project settings are used.
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `properties` - A list with tuples of property name and property values.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.runWithProperties(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}}},System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Builds the given project files and collects the output files.
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `outputPath` - If it is null or empty then the project settings are used.
+  - `targets` - A string with the target names which should be run by MSBuild.
+  - `properties` - A list with tuples of property name and property values.
+  - `projects` - A list of project or solution files.
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.build(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuildParams,Fake.DotNet.MSBuildParams},System.String)">
+<summary>
+ Runs a MSBuild project
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildParams
+  - `project` - A string with the path to the project file to build.
+
+ ## Sample
+
+     open Fake.DotNet
+     let buildMode = Environment.environVarOrDefault &quot;buildMode&quot; &quot;Release&quot;
+     let setParams (defaults:MSBuildParams) =
+             { defaults with
+                 Verbosity = Some(Quiet)
+                 Targets = [&quot;Build&quot;]
+                 Properties =
+                     [
+                         &quot;Optimize&quot;, &quot;True&quot;
+                         &quot;DebugSymbols&quot;, &quot;True&quot;
+                         &quot;Configuration&quot;, buildMode
+                     ]
+              }
+     MSBuild.build setParams &quot;./MySolution.sln&quot;
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.serializeMSBuildParams(Fake.DotNet.MSBuildParams)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.getProjectReferences(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.processReferences(System.String,Microsoft.FSharp.Core.FSharpFunc{System.String,System.String},System.String,System.Xml.Linq.XDocument)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.getReferenceElements(System.String,System.String,System.Xml.Linq.XDocument)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.loadProject(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.MSBuild.xname(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuild.msbuildNamespace">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildExe.msBuildExe">
+<summary>
+ Tries to detect the right version of MSBuild.
+
+   - On all OS&apos;s, we check a `MSBuild` environment variable which is either
+     * a direct path to a file to use, or
+     * a directory that contains a file called
+         * `msbuild` on non-Windows systems with mono &gt;= 5.0.0.0, or
+         * `xbuild` on non-Windows systems with mono &lt; 5.0.0.0,
+         * `MSBuild.exe` on Windows systems, or
+     * a tool that exists on the current PATH
+   - In addition, on non-Windows systems we check the current PATH for the following binaries, in this order:
+     * Mono &gt;= 5.0.0.0: `msbuild`, `xbuild`
+     * Mono &lt; 5.0.0.0: `xbuild`, `msbuild`
+     * This is due to several known issues in the Mono &lt; 5.0 implementation of MSBuild.
+   - In addition, on Windows systems we
+     * try to read the MSBuild tool location from the AppSettings file using a parameter named `MSBuild`, and finally
+     * if a `VisualStudioVersion` environment variable is specified, we try to use the specific MSBuild version, matching that Visual Studio version.
+</summary>
+</member>
+<member name="P:Fake.DotNet.MSBuildExe.monoVersionToUseMSBuildOn">
+<summary>
+ Versions of Mono prior to this one have faulty implementations of MSBuild
+ NOTE: in System.Version 5.0 &gt;= 5.0.0.0 is false while 5.0.0.0 &gt;= 5.0 is true...
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,1396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.DotNet.Cli</name></assembly>
+<members>
+<member name="M:Fake.Core.CreateProcessDotNetExt.CreateProcess.withToolType``1(Fake.DotNet.ToolType,Fake.Core.CreateProcess{``0})">
+<summary>
+ Ensures the command  is run with dotnet or with framework/mono as appropriate.
+
+ ### Example
+
+     Command.RawCommand(&quot;tool&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; CreateProcess.withToolType toolType // prepare to execute tool, mono tool, or dotnet localtool.
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessDotNetExt.CreateProcess">
+<summary>
+ Extensions to [`CreateProcess`](apidocs/v5/fake-core-createprocess.html).
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessDotNetExt">
+<summary>
+ Some extensions for the `CreateProcess` module, opened automatically (use add `open Fake.Core`)
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.CLIToolReference">
+<summary>
+ CLIToolReference, uses `dotnet &lt;toolname&gt;`
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.LocalTool">
+<summary>
+ local dotnet tool, uses `dotnet &lt;toolname&gt;`
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.GlobalTool">
+<summary>
+ The application is a global dotnet cli tool, does not prefix anything, expects ToolPath to be the platform dependent path to the application.
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.SelfContainedDeployment">
+<summary>
+ The application is a self contained application, does not prefix anything, expects ToolPath to be the platform dependent path to the application.
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.FrameworkDependentDeployment">
+<summary>
+ The application is a framework dependent application, prefixes the app with `dotnet` and allows ToolPath to be the path to the dll.
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType.FullFramework">
+<summary>
+ The application is a pre .NET 5 full framework application, ToolPath is combined with CreateProcess.withFramework. Which prefixes the command with `mono` on non-windows platforms
+</summary>
+</member>
+<member name="T:Fake.DotNet.ToolType">
+<summary>
+ Describes which kind of application ToolPath references
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNetLocalTool.ToolCommandName">
+<summary>
+ The command name of the tool (the first argument of &apos;dotnet&apos;). For example `&quot;fake&quot;` for `dotnet fake`.
+ By default we usually fallback to the executable name of ToolPath without file extension.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNetLocalTool.Options">
+<summary>
+ Parameters as for the dotnet call
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNetLocalTool">
+<summary>
+ Information about a dotnet tool
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNetFDDOptions.Options">
+<summary>
+ Parameters as for the dotnet call
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TemplateUninstallOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TemplateUninstallOptions.Create(System.String)">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.TemplateUninstallOptions">
+<summary>
+ dotnet new --install options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TemplateInstallOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TemplateInstallOptions.Create(System.String)">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.TemplateInstallOptions">
+<summary>
+ dotnet new --install options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.NewOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.NewOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.NewOptions">
+<summary>
+ dotnet new command options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.NewLanguage.ToString">
+<summary>
+ Convert the list option to string representation
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.NewLanguage">
+<summary>
+ the languages supported by new command
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.NuGetPushOptions">
+<summary>
+ nuget push parameters for `dotnet nuget push`
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.MSBuildParams">
+<summary>
+ Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Blame">
+<summary>
+ Runs the tests in blame mode. This option is helpful in isolating the problematic tests causing test host to crash. It creates an output file in the current directory as Sequence.xml that captures the order of tests execution before the crash.  (--blame)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.RunSettingsArguments">
+<summary>
+ Arguments to pass runsettings configurations through commandline. Arguments may be specified as name-value pair of the form [name]=[value] after &quot;-- &quot;. Note the space after --.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.NoRestore">
+<summary>
+  Does not do an implicit restore when executing the command. (--no-restore)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Collect">
+<summary>
+ Enables data collector for the test run. More info here : https://aka.ms/vstest-collect (--collect)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.ResultsDirectory">
+<summary>
+ The directory where the test results are going to be placed. The specified directory will be created if it does not exist. (--results-directory)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.NoBuild">
+<summary>
+  Do not build project before testing. (--no-build)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.NoLogo">
+<summary>
+ Don&apos;t show copyright messages. (--nologo)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Diag">
+<summary>
+ Enable verbose logs for test platform. Logs are written to the provided file. (--diag)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Output">
+<summary>
+  Directory in which to find the binaries to be run (--output)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Framework">
+<summary>
+ Target framework to publish for. The target framework has to be specified in the project file. (--framework)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Configuration">
+<summary>
+Configuration to use for building the project.  Default for most projects is  &quot;Debug&quot;. (--configuration)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Logger">
+<summary>
+ Specify a logger for test results. (--logger)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.TestAdapterPath">
+<summary>
+ Use custom adapters from the given path in the test run. (--test-adapter-path)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Filter">
+<summary>
+ Run tests that match the given expression. (--filter)
+  Examples:
+   Run tests with priority set to 1: --filter &quot;Priority = 1&quot;
+   Run a test with the specified full name: --filter &quot;FullyQualifiedName=Namespace.ClassName.MethodName&quot;
+   Run tests that contain the specified name: --filter &quot;FullyQualifiedName~Namespace.Class&quot;
+   More info on filtering support: https://aka.ms/vstest-filtering
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.ListTests">
+<summary>
+ Lists discovered tests (--list-tests)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Settings">
+<summary>
+ Settings to use when running tests (--settings)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.TestOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TestOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TestOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TestOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.TestOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.TestOptions">
+<summary>
+ dotnet test command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.MSBuildParams">
+<summary>
+ Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore during build. (--no-restore)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.NoLogo">
+<summary>
+ Don&apos;t show copyright messages. (--nologo)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Native">
+<summary>
+ Native flag (--native)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.OutputPath">
+<summary>
+ Output path (--output)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.BuildBasePath">
+<summary>
+ Build base path (--build-base-path)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Runtime">
+<summary>
+ Target runtime to publish for (--runtime)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Framework">
+<summary>
+ Target framework to compile for (--framework)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Configuration">
+<summary>
+ Pack configuration (--configuration)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.BuildOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.BuildOptions">
+<summary>
+ dotnet build command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.MSBuildParams">
+<summary>
+ Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Force">
+<summary>
+ Force all dependencies to be resolved even if the last restore was successful.
+ This is equivalent to deleting project.assets.json. (--force)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore when running the command. (--no-restore)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.NoBuild">
+<summary>
+ No build flag (--no-build)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.NoLogo">
+<summary>
+ Don&apos;t show copyright messages. (--nologo)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.SelfContained">
+<summary>
+ Publish the .NET Core runtime with your application so the runtime doesn&apos;t need to be installed on the target machine.
+ The default is &apos;true&apos; if a runtime identifier is specified. (--self-contained)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Manifest">
+<summary>
+ Specifies one or several target manifests to use to trim the set of packages published with the app.
+ The manifest file is part of the output of the dotnet store command.
+ This option is available starting with .NET Core 2.0 SDK. (--manifest)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.VersionSuffix">
+<summary>
+ Defines what `*` should be replaced with in version field in project.json (--version-suffix)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.OutputPath">
+<summary>
+ Output path (--output)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.BuildBasePath">
+<summary>
+ Build base path (--build-base-path)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Runtime">
+<summary>
+ Target runtime to publish for (--runtime)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Framework">
+<summary>
+ Target framework to compile for (--framework)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Configuration">
+<summary>
+ Pack configuration (--configuration)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PublishOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PublishOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PublishOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PublishOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PublishOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.PublishOptions">
+<summary>
+ dotnet publish command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.IncludeSymbols">
+<summary>
+ Includes the debug symbols NuGet packages in addition to the regular NuGet packages in the output directory (--include-symbols)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.MSBuildParams">
+<summary>
+ Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.NoRestore">
+<summary>
+ Doesn&apos;t execute an implicit restore when running the command. (--no-restore)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.NoBuild">
+<summary>
+ No build flag (--no-build)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.NoLogo">
+<summary>
+ Don&apos;t show copyright messages. (--nologo)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.OutputPath">
+<summary>
+ Output path (--output)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.BuildBasePath">
+<summary>
+ Build base path (--build-base-path)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.VersionSuffix">
+<summary>
+ Version suffix to use
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.Configuration">
+<summary>
+ Pack configuration (--configuration)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.PackOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PackOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PackOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PackOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.PackOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.PackOptions">
+<summary>
+ dotnet pack command options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildConfiguration.ToString">
+<summary>
+ Convert the build configuration to a string that can be passed to the .NET CLI
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.BuildConfiguration">
+<summary>
+ build configuration
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.MSBuildParams">
+<summary>
+ Other msbuild specific parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.DisableParallel">
+<summary>
+ Disables restoring multiple projects in parallel (--disable-parallel)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.IgnoreFailedSources">
+<summary>
+ Only warning failed sources if there are packages meeting version requirement (--ignore-failed-sources)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.NoCache">
+<summary>
+ No cache flag (--no-cache)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.ConfigFile">
+<summary>
+ Path to the nuget configuration file (nuget.config).
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.Packages">
+<summary>
+ Directory to install packages in (--packages).
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.Sources">
+<summary>
+ Nuget feeds to search updates in. Use default if empty.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.Runtime">
+<summary>
+ The runtime to restore for (seems added in RC4). Maybe a bug, but works.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.RestoreOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RestoreOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RestoreOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RestoreOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RestoreOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.RestoreOptions">
+<summary>
+ dotnet restore command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.MSBuildOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.MSBuildOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.MSBuildOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.MSBuildOptions.WithMSBuildParams(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.MSBuild.CliArguments,Fake.DotNet.MSBuild.CliArguments})">
+<summary>
+ Changes the &quot;MSBuildParams&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.MSBuildOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.MSBuildOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.MSBuildOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.MSBuildOptions">
+<summary>
+ dotnet restore command options
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.VersionResult">
+<summary>
+ dotnet info result
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.VersionOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.VersionOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.VersionOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.VersionOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.VersionOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.VersionOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.VersionOptions">
+<summary>
+ dotnet --version command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InfoResult.RID">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.InfoResult">
+<summary>
+ dotnet info result
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InfoOptions.Common">
+<summary>
+ Common tool options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InfoOptions.Environment">
+<summary>
+ Gets the current environment
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.InfoOptions.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.InfoOptions.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.InfoOptions.WithCommon(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.InfoOptions.Create">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.InfoOptions">
+<summary>
+ dotnet --info command options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.Environment">
+<summary>
+ Gets the environment variables that apply to this process and its child processes.
+ NOTE: Recommendation is to not use this Field, but instead use the helper function in the Proc module (for example Process.setEnvironmentVariable)
+ NOTE: This field is ignored when UseShellExecute is true.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.PrintRedirectedOutput">
+<summary>
+ If RedirectOutput is true this flag decides if FAKE emits the output into the standard output/error otherwise the flag is ignored.
+ True by default.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.RedirectOutput">
+<summary>
+ If true the function will redirect the output of the called process (but will disable colors, false by default)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.Diagnostics">
+<summary>
+ Restore logging verbosity (--diagnostics)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.Verbosity">
+<summary>
+ Logging verbosity (--verbosity)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.CustomParams">
+<summary>
+ Custom parameters
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.Timeout">
+<summary>
+ Process timeout, kills the process after the specified time
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.WorkingDirectory">
+<summary>
+ Command working directory
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.Version">
+<summary>
+ Write a global.json with the given version (required to make SDK choose the correct version)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.Options.DotNetCliPath">
+<summary>
+ DotNet cli executable path
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.WithRedirectOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the output for the given process is redirected.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.WithPrintRedirectedOutput(System.Boolean)">
+<summary>
+ Sets a value indicating whether the redirected output should be printed to standard-output/error stream.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.WithCommon``1(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,``0})">
+<summary>
+ Changes the &quot;Common&quot; properties according to the given function
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Options.Create">
+<summary>
+ Create a default setup for executing the `dotnet` command line.
+ This function tries to take current `global.json` into account and tries to find the correct installation.
+ To overwrite this behavior set `DotNetCliPath` manually (for example to the first result of `ProcessUtils.findFilesOnPath &quot;dotnet&quot;`)
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.Options">
+<summary>
+ dotnet cli command execution options
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.Verbosity">
+<summary>
+ dotnet restore verbosity
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.WorkingDirectory">
+<summary>
+ Command working directory
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.NoPath">
+<summary>
+ Do not update path variable
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.DryRun">
+<summary>
+ If set it will not perform installation but instead display what command line to use
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.DebugSymbols">
+<summary>
+ Include symbols in the installation (Switch does not work yet. Symbols zip is not being uploaded yet)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.Architecture">
+<summary>
+ Architecture
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.ForceInstall">
+<summary>
+ Always download and run the installer, ignore potentiall existing installations.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.CustomInstallDir">
+<summary>
+ Custom installation directory (for local build installation)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.Version">
+<summary>
+ .NET Core SDK version
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.Channel">
+<summary>
+ Specifies the source channel for the installation. The possible values are:
+ - `Current` - Most current release.
+ - `LTS` - Long-Term Support channel (most current supported release).
+ - Two-part version in `X.Y` format representing a specific release (for example, `2.0` or `1.0`).
+ - Branch name. For example, release/2.0.0, release/2.0.0-preview2, or master (for nightly releases).
+ 
+ The default value is `LTS`. For more information on .NET support channels, see the .NET Support Policy page.
+ 
+ Use the `CliChannel` module, for example `CliChannel.Current`
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.InstallerOptions">
+<summary>
+ Custom installer obtain (download) options
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliInstallOptions.Default">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliInstallOptions">
+<summary>
+ .NET Core SDK install options
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliVersion.GlobalJson">
+<summary>
+ Take version from global.json and fail if it is not found.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliVersion.Version">
+<summary>
+ Three-part version in X.Y.Z format representing a specific build version; supersedes the -Channel option. For example: 2.0.0-preview2-006120.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliVersion.Coherent">
+<summary>
+ Latest coherent build on the channel; uses the latest stable package combination (used with Branch name -Channel options).
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliVersion.Latest">
+<summary>
+  Latest build on the channel (used with the -Channel option).
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliVersion">
+<summary>
+ .NET Core SDK version (used to specify version when installing .NET Core SDK)
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliArchitecture.Auto">
+<summary>
+ this value represents currently running OS architecture
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliArchitecture">
+<summary>
+ .NET Core SDK architecture
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InstallerOptions.Branch">
+<summary>
+ Download installer from this github branch
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InstallerOptions.AlwaysDownload">
+<summary>
+ Always download install script (otherwise install script is cached in temporary folder)
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.InstallerOptions.Default">
+<summary>
+ Parameter default values.
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.InstallerOptions">
+<summary>
+ .NET Core SDK installer download options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.uninstallTemplate(System.String)">
+<summary>
+ Execute dotnet new --uninstall &lt;PATH|NUGET_ID&gt; command to uninstall a new template
+ ## Parameters
+
+ - &apos;templateName&apos; - template short name to uninstall
+ - &apos;setParams&apos; - set version command parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.installTemplate(System.String,Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.TemplateInstallOptions,Fake.DotNet.DotNet.TemplateInstallOptions})">
+<summary>
+ Execute dotnet new --install &lt;PATH|NUGET_ID&gt; command to install a new template
+ ## Parameters
+
+ - &apos;templateName&apos; - template short name to install
+ - &apos;setParams&apos; - set version command parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.newFromTemplate``1(``0,Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.NewOptions,Fake.DotNet.DotNet.NewOptions})">
+<summary>
+ Execute dotnet new command
+ ## Parameters
+
+ - &apos;templateName&apos; - template short name to create from
+ - &apos;setParams&apos; - set version command parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildTemplateUninstallArgs(Fake.DotNet.DotNet.TemplateUninstallOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildTemplateInstallArgs(Fake.DotNet.DotNet.TemplateInstallOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildNewArgs(Fake.DotNet.DotNet.NewOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.nugetPush(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.NuGetPushOptions,Fake.DotNet.DotNet.NuGetPushOptions},System.String)">
+<summary>
+ Execute dotnet nuget push command
+ ## Parameters
+
+ - &apos;setParams&apos; - set nuget push command parameters
+ - &apos;nupkg&apos; - nupkg to publish
+ 
+ ## Sample
+
+     open Fake.DotNet
+     let setNugetPushParams (defaults:NuGet.NuGetPushParams) =
+             { defaults with
+                 DisableBuffering = true
+                 ApiKey = Some &quot;abc123&quot;
+              }
+     let setParams (defaults:DotNet.NuGetPushOptions) =
+             { defaults with
+                 PushParams = setNugetPushParams defaults.PushParams
+              }
+     
+     DotNet.nugetPush setParams &quot;./My.Package.nupkg&quot;
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.test(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.TestOptions,Fake.DotNet.DotNet.TestOptions},System.String)">
+<summary>
+ Execute dotnet test command
+ ## Parameters
+
+ - &apos;setParams&apos; - set test command parameters
+ - &apos;project&apos; - project to test
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildTestArgs(Fake.DotNet.DotNet.TestOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.build(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.BuildOptions,Fake.DotNet.DotNet.BuildOptions},System.String)">
+<summary>
+ Execute dotnet build command
+ ## Parameters
+
+ - &apos;setParams&apos; - set compile command parameters
+ - &apos;project&apos; - project to compile
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildBuildArgs(Fake.DotNet.DotNet.BuildOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.publish(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.PublishOptions,Fake.DotNet.DotNet.PublishOptions},System.String)">
+<summary>
+ Execute dotnet publish command
+ ## Parameters
+
+ - &apos;setParams&apos; - set publish command parameters
+ - &apos;project&apos; - project to publish
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildPublishArgs(Fake.DotNet.DotNet.PublishOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.pack(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.PackOptions,Fake.DotNet.DotNet.PackOptions},System.String)">
+<summary>
+ Execute dotnet pack command
+ ## Parameters
+
+ - &apos;setParams&apos; - set pack command parameters
+ - &apos;project&apos; - project to pack
+
+ ## Sample
+
+     let packConfiguration (defaults:DotNet.PackOptions) =
+         { defaults with
+               Configuration = DotNet.Debug
+               OutputPath = Some &quot;./packages&quot;
+               IncludeSymbols = true }
+ 
+     DotNet.pack packConfiguration &quot;./MyProject.csproj&quot;
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildPackArgs(Fake.DotNet.DotNet.PackOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildConfigurationArg(Fake.DotNet.DotNet.BuildConfiguration)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.restore(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.RestoreOptions,Fake.DotNet.DotNet.RestoreOptions},System.String)">
+<summary>
+ Execute dotnet restore command
+ ## Parameters
+
+ - &apos;setParams&apos; - set restore command parameters
+ - &apos;project&apos; - project to restore packages
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildRestoreArgs(Fake.DotNet.DotNet.RestoreOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.msbuild(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.MSBuildOptions,Fake.DotNet.DotNet.MSBuildOptions},System.String)">
+<summary>
+ Runs a MSBuild project
+ ## Parameters
+  - `setParams` - A function that overwrites the default MSBuildOptions
+  - `project` - A string with the path to the project file to build.
+
+ ## Sample
+
+     open Fake.DotNet
+     let setMsBuildParams (defaults:MSBuild.CliArguments) =
+             { defaults with
+                 Verbosity = Some(Quiet)
+                 Targets = [&quot;Build&quot;]
+                 Properties =
+                     [
+                         &quot;Optimize&quot;, &quot;True&quot;
+                         &quot;DebugSymbols&quot;, &quot;True&quot;
+                         &quot;Configuration&quot;, &quot;Release&quot;
+                     ]
+              }
+     let setParams (defaults:DotNet.MSBuildOptions) =
+             { defaults with
+                 MSBuildParams = setMsBuildParams defaults.MSBuildParams
+              }
+     
+     DotNet.msbuild setParams &quot;./MySolution.sln&quot;
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.install(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.CliInstallOptions,Fake.DotNet.DotNet.CliInstallOptions})">
+<summary>
+ Install .NET Core SDK if required
+ ## Parameters
+
+ - &apos;setParams&apos; - set installation options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.getVersion(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.VersionOptions,Fake.DotNet.DotNet.VersionOptions})">
+<summary>
+ Execute dotnet --version command
+ ## Parameters
+
+ - &apos;setParams&apos; - set version command parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.info(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.InfoOptions,Fake.DotNet.DotNet.InfoOptions})">
+<summary>
+ Execute dotnet --info command
+ ## Parameters
+
+ - &apos;setParams&apos; - set info command parameters
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.setupEnv(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options})">
+<summary>
+ Setup the environment (`PATH` and `DOTNET_ROOT`) in such a way that started processes use the given dotnet SDK installation.
+ This is useful for example when using fable, see https://github.com/fsharp/FAKE/issues/2405
+ ## Parameters
+
+ - &apos;install&apos; - The SDK to use (result of `DotNet.install`)
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.prefixProcess``1(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options},Microsoft.FSharp.Collections.FSharpList{System.String},Fake.Core.CreateProcess{``0})">
+<summary>
+ Replace the current `CreateProcess` instance to run with dotnet.exe
+ ## Parameters
+
+ - &apos;buildOptions&apos; - build common execution options
+ - &apos;firstArg&apos; - the first argument (like t)
+ - &apos;args&apos; - command arguments
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.exec(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options},System.String,System.String)">
+<summary>
+ Execute raw dotnet cli command
+ ## Parameters
+
+ - &apos;buildOptions&apos; - build common execution options
+ - &apos;command&apos; - the sdk command to execute &apos;test&apos;, &apos;new&apos;, &apos;build&apos;, ...
+ - &apos;args&apos; - command arguments
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.run(System.Collections.Generic.IEnumerable{System.String},Fake.DotNet.DotNet.Options)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildCommand(Microsoft.FSharp.Collections.FSharpList{System.String},Microsoft.FSharp.Collections.FSharpList{System.String},Fake.DotNet.DotNet.Options)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildSdkOptionsArgs(Fake.DotNet.DotNet.Options)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildCommonArgs(Fake.DotNet.DotNet.Options)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.argOptionExplicit``1(System.String,``0)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.argOption(System.String,System.Boolean)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.argList2(System.String,Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.buildDotNetCliInstallArgs(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.boolToFlag(System.Boolean,System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.optionToParam``1(Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.PrintfFormat{Microsoft.FSharp.Core.FSharpFunc{``0,System.String},Microsoft.FSharp.Core.Unit,System.String,System.String})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RC4_004973ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling, this is marketized as v1.0.1 release of the .NET Core tools
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.RC4_004771ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.LatestPreview4ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Preview2ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview2 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.downloadInstaller(Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.InstallerOptions,Fake.DotNet.DotNet.InstallerOptions})">
+<summary>
+ Download .NET Core SDK installer
+ ## Parameters
+
+ - &apos;setParams&apos; - set download installer options
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.md5(System.Byte[])">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.downloadDotNetInstallerFromUrl(System.String,System.String)">
+<summary>
+ Download .NET Core SDK installer
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.getGenericDotNetCliInstallerUrl(System.String,System.String)">
+<summary>
+ Get .NET Core SDK download uri
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.findPossibleDotnetCliPaths(Microsoft.FSharp.Core.FSharpOption{System.String})">
+<summary>
+ Get dotnet cli executable path. Probes the provided path first, then as a fallback tries the system PATH
+ ## Parameters
+
+ - &apos;dotnetCliDir&apos; - the path to check else will probe system PATH
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.getSDKVersionFromGlobalJson">
+<summary>
+ Gets the DotNet SDK from the global.json
+ This file can exist in the working directory or any of the parent directories
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.tryGetSDKVersionFromGlobalJson">
+<summary>
+ Tries the DotNet SDK from the global.json
+ This file can exist in the working directory or any of the parent directories
+ Returns None if global.json is not found
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.getSDKVersionFromGlobalJsonDir(System.String)">
+<summary>
+ Gets the DotNet SDK from the global.json, starts searching in the given directory.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.tryGetSDKVersionFromGlobalJsonDir(System.String)">
+<summary>
+ Tries to get the DotNet SDK from the global.json, starts searching in the given directory. Returns None if global.json is not found
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.defaultSystemInstallDir">
+<summary>
+ .NET Core SDK default install directory (set to default SDK installer paths (/usr/local/share/dotnet or C:\Program Files\dotnet))
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.defaultUserInstallDir">
+<summary>
+ .NET Core SDK default install directory (set to default SDK installer paths (%HOME/.dotnet or %LOCALAPPDATA%/Microsoft/dotnet).
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildConfigurationModule.fromEnvironVarOrDefault(System.String,Fake.DotNet.DotNet.BuildConfiguration)">
+<summary>
+ Get the build configuration from an environment variable with the given name or returns
+ the default if not value was set
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.BuildConfigurationModule.fromString(System.String)">
+<summary>
+ Parse a build configuration string
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.OptionsModule.withAdditionalArgs``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpFunc{Fake.DotNet.DotNet.Options,Fake.DotNet.DotNet.Options},``0}},System.Collections.Generic.IEnumerable{System.String},``0)">
+<summary>
+ Sets custom command-line arguments expressed as a sequence of strings.
+ This function overwrites and gets overwritten by `withCustomParams`.
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Versions.RC4_004973ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling, this is marketized as v1.0.1 release of the .NET Core tools
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Versions.RC4_004771ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Versions.Preview4_004233ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Versions.LatestPreview4ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview4 tooling
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.Versions.Preview2ToolingOptions(Fake.DotNet.DotNet.CliInstallOptions)">
+<summary>
+ .NET Core SDK install options preconfigured for preview2 tooling
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.Versions">
+<summary>
+ The a list of well-known versions to install
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.CliChannel.Branch``1(``0)">
+<summary>
+ Branch name. For example, release/2.0.0, release/2.0.0-preview2, or master (for nightly releases).
+</summary>
+</member>
+<member name="M:Fake.DotNet.DotNet.CliChannel.Version(System.Int32,System.Int32)">
+<summary>
+ Two-part version in X.Y format representing a specific release (for example, 2.0 or 1.0).
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliChannel.Current">
+<summary>
+ Most current release.
+</summary>
+</member>
+<member name="P:Fake.DotNet.DotNet.CliChannel.LTS">
+<summary>
+ Long-Term Support channel (most current supported release).
+</summary>
+</member>
+<member name="T:Fake.DotNet.DotNet.CliChannel">
+<summary>
+ Specifies the source channel for the installation. 
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.String</name></assembly>
+<members>
+<member name="M:Fake.Core.String.decodeBase64Utf8String(System.String)">
+<summary>
+ Decodes a Base64-encoded UTF-8-encoded string
+</summary>
+</member>
+<member name="M:Fake.Core.String.encapsulateApostrophe(System.String)">
+<summary>
+ Encapsulates the Apostrophe
+</summary>
+</member>
+<member name="M:Fake.Core.String.removeLineBreaks(System.String)">
+<summary>
+ Removes linebreaks from the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.convertFileToWindowsLineBreaksWithEncoding(System.Text.Encoding,System.String)">
+<summary>
+ Reads a file line by line and replaces all line breaks to windows line breaks
+   - uses a temp file to store the contents in order to prevent OutOfMemory exceptions
+</summary>
+</member>
+<member name="M:Fake.Core.String.convertTextToWindowsLineBreaks(System.String)">
+<summary>
+ Converts all line breaks in a text to windows line breaks
+</summary>
+</member>
+<member name="P:Fake.Core.String.MacLineBreaks">
+<summary>
+ Represents Mac line breaks
+</summary>
+</member>
+<member name="P:Fake.Core.String.WindowsLineBreaks">
+<summary>
+ Represents Windows line breaks
+</summary>
+</member>
+<member name="P:Fake.Core.String.LinuxLineBreaks">
+<summary>
+ Represents Linux line breaks
+</summary>
+</member>
+<member name="M:Fake.Core.String.NormalizeVersion(System.String)">
+<summary>
+ Removes all trailing .0 from a version string
+</summary>
+</member>
+<member name="M:Fake.Core.String.liftString(System.String)">
+<summary>
+ Lifts a string to an option
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimEndChars(System.Char[],System.String)">
+<summary>
+ Trims the end of the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimStartChars(System.Char[],System.String)">
+<summary>
+ Trims the start of the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimChars(System.Char[],System.String)">
+<summary>
+ Trims the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.trim(System.String)">
+<summary>
+ Trims the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimSpecialChars(System.String)">
+<summary>
+ Trims all special characters from a string.
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimSeparator(System.String)">
+<summary>
+ Trims the given string with the DirectorySeparatorChar
+</summary>
+</member>
+<member name="M:Fake.Core.String.isLetterOrDigit(System.Char)">
+<summary>
+ Checks whether the given char is a standard char or digit.
+</summary>
+</member>
+<member name="P:Fake.Core.String.charsAndDigits">
+<summary>
+ Returns all standard chars and digits.
+</summary>
+</member>
+<member name="M:Fake.Core.String.toLower(System.String)">
+<summary>
+ Converts all characters in a string to lower case.
+</summary>
+</member>
+<member name="M:Fake.Core.String.isUmlaut(System.Char)">
+<summary>
+ Checks whether the given char is a german umlaut.
+</summary>
+</member>
+<member name="M:Fake.Core.String.regex_replace(System.String,System.String,System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.String.getRegEx(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.String.regexes">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.String.replaceFirst(System.String,System.String,System.String)">
+<summary>
+ Replaces the first occurrence of the pattern with the given replacement.
+</summary>
+</member>
+<member name="P:Fake.Core.String.endsWithSlash">
+<summary>
+ Determines whether the last character of the given &lt;see cref=&quot;string&quot; /&gt;
+ matches Path.DirectorySeparatorChar.         
+</summary>
+</member>
+<member name="M:Fake.Core.String.endsWith(System.String,System.String)">
+<summary>
+ Checks whether the given text ends with the given suffix
+</summary>
+</member>
+<member name="M:Fake.Core.String.startsWith(System.String,System.String)">
+<summary>
+ Checks whether the given text starts with the given prefix
+</summary>
+</member>
+<member name="M:Fake.Core.String.toLines(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Converts a sequence of strings into a string separated with line ends
+</summary>
+</member>
+<member name="M:Fake.Core.String.splitStr(System.String,System.String)">
+<summary>
+ Splits the given string at the given string delimiter
+</summary>
+</member>
+<member name="M:Fake.Core.String.split(System.Char,System.String)">
+<summary>
+ Splits the given string at the given char delimiter
+</summary>
+</member>
+<member name="M:Fake.Core.String.trimSlash(System.String)">
+<summary>
+ Removes the slashes from the end of the given string
+</summary>
+</member>
+<member name="M:Fake.Core.String.separated(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Converts a sequence of strings to a string with delimiters
+</summary>
+</member>
+<member name="M:Fake.Core.String.replace(System.String,System.String,System.String)">
+<summary>
+ Replaces the given pattern in the given text with the replacement
+</summary>
+</member>
+<member name="M:Fake.Core.String.isNullOrWhiteSpace(System.String)">
+<summary>
+ Returns if the string is null or empty or completely whitespace
+</summary>
+</member>
+<member name="M:Fake.Core.String.isNotNullOrEmpty(System.String)">
+<summary>
+ Returns if the string is not null or empty
+</summary>
+</member>
+<member name="M:Fake.Core.String.isNullOrEmpty(System.String)">
+<summary>
+ Returns if the string is null or empty
+</summary>
+</member>
+<member name="M:Fake.Core.String.productName">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.String.Operators.op_GreaterMultiplyMultiply(System.String,System.String)">
+<summary>
+ Determines if a text matches a given regex pattern.
+</summary>
+</member>
+<member name="M:Fake.Core.String.Operators.op_GreaterEqualsGreater(System.String,System.String,System.String)">
+<summary>
+ Find a regex pattern in a text and replaces it with the given replacement.
+</summary>
+</member>
+<member name="M:Fake.Core.String.Operators.op_LessMultiply(System.String,System.String)">
+<summary>
+ Checks whether the given text starts with the given prefix
+</summary>
+</member>
+<member name="T:Fake.Core.String">
+<summary>
+ Contains basic functions for string manipulation.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.toText(System.Text.StringBuilder)">
+<summary>
+ Returns the text from the StringBuilder
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.forEach``3(Microsoft.FSharp.Collections.FSharpList{``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,Microsoft.FSharp.Core.FSharpFunc{System.Text.StringBuilder,``2}}},``1,System.Text.StringBuilder)">
+<summary>
+ Applies action on builder for each element of list.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendFileNamesIfNotNull(System.Collections.Generic.IEnumerable{System.String},System.Text.StringBuilder)">
+<summary>
+ Appends all notnull fileNames.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendIfNotNullOrEmpty(System.String,System.String)">
+<summary>
+ Appends a text if the value is not null or empty.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendStringIfValueIsNotNullOrEmpty(System.String)">
+<summary>
+ Appends a text if the value is not null or empty.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendStringIfValueIsNotNull``1(``0)">
+<summary>
+ Appends a text if the value is not null.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendQuotedIfNotNull(System.Object,System.String,System.Text.StringBuilder)">
+<summary>
+ Appends a quoted text if the value is not null.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendIfNotNull(System.Object,System.String)">
+<summary>
+ Appends a text if the value is not null.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendWithoutQuotesIfNotNull(System.Object,System.String)">
+<summary>
+ Appends a text without quoting if the value is not null.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendIfFalse(System.Boolean)">
+<summary>
+ Appends a text if the predicate is false.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendIfTrue(System.Boolean,System.String,System.Text.StringBuilder)">
+<summary>
+ Appends a text if the predicate is true.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendIfSome``1(Microsoft.FSharp.Core.FSharpOption{``0},Microsoft.FSharp.Core.FSharpFunc{``0,System.String},System.Text.StringBuilder)">
+<summary>
+ Appends string of function value if option has some value
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.appendWithoutQuotes(System.String,System.Text.StringBuilder)">
+<summary>
+ Appends a text to a StringBuilder without surrounding quotes.
+</summary>
+</member>
+<member name="M:Fake.Core.StringBuilder.append(System.String,System.Text.StringBuilder)">
+<summary>
+ Appends a text to a StringBuilder.
+</summary>
+</member>
+</members>
+</doc>

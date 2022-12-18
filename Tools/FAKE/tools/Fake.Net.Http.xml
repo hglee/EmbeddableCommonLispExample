@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Net.Http</name></assembly>
+<members>
+<member name="M:Fake.Net.Async.Async.apply``2(Microsoft.FSharp.Control.FSharpAsync{Microsoft.FSharp.Core.FSharpFunc{``0,``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.bind``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Control.FSharpAsync{``0})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Async.Async.result``1">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Async.Async">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Result.Result.ResultBuilder">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Result.Result.apply``3(Microsoft.FSharp.Core.FSharpResult{Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Collections.FSharpList{``2}},Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``2}})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Result.Result">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.sequenceResultA``2(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Core.FSharpResult{``0,Microsoft.FSharp.Collections.FSharpList{``1}}})">
+<summary>
+ [omit]
+ Transform a &quot;list&lt;Result&gt;&quot; into a &quot;Result&lt;list&gt;&quot; 
+ and collect the results using apply.
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.traverseResultA``3(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpResult{``1,Microsoft.FSharp.Collections.FSharpList{``2}}},Microsoft.FSharp.Collections.FSharpList{``0})">
+<summary>
+ [omit]
+ Map a Result producing function over a list to get a new Result 
+ using applicative style
+ (&apos;a -&gt; Result&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Result&lt;&apos;b list&gt;
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.sequenceAsyncA``1(Microsoft.FSharp.Collections.FSharpList{Microsoft.FSharp.Control.FSharpAsync{``0}})">
+<summary>
+ [omit]
+ Transform a &quot;list&lt;Async&gt;&quot; into a &quot;Async&lt;list&gt;&quot; 
+ and collect the results using apply.
+</summary>
+</member>
+<member name="M:Fake.Net.List.List.traverseAsyncA``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}},Microsoft.FSharp.Collections.FSharpList{``0})">
+<summary>
+ [omit]
+ Map a Async producing function over a list to get a new Async 
+ using applicative style
+ (&apos;a -&gt; Async&lt;&apos;b&gt;) -&gt; &apos;a list -&gt; Async&lt;&apos;b list&gt;
+</summary>
+</member>
+<member name="T:Fake.Net.List.List">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Http.PostMethod">
+<summary>
+ Option type for the HTTP verb
+</summary>
+</member>
+<member name="T:Fake.Net.Http.DownloadInfo">
+<summary>
+ Contains validated Uri and FilePath info for further download
+</summary>
+</member>
+<member name="T:Fake.Net.Http.FilePath">
+<summary>
+ Type aliases for local file path and error messages
+</summary>
+</member>
+<member name="P:Fake.Net.Http.DownloadParameters.Path">
+<summary>
+ The name of the local file that is to receive the data
+</summary>
+</member>
+<member name="P:Fake.Net.Http.DownloadParameters.Uri">
+<summary>
+ The URI from which to download data
+</summary>
+</member>
+<member name="T:Fake.Net.Http.DownloadParameters">
+<summary>
+ Input parameter type
+</summary>
+</member>
+<member name="M:Fake.Net.Http.getWithHeaders(System.String,System.String,Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String)">
+<summary>
+ Like &apos;get&apos; but allow to set headers and returns the response headers.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.upload(System.String,System.String)">
+<summary>
+ Upload the given file to the given endpoint
+</summary>
+</member>
+<member name="M:Fake.Net.Http.post(System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.postCommand(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.    
+ This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `headerF` - A function which allows to manipulate the HTTP headers.
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.postCommandAsync(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP POST command and retrives the information.    
+ This function will automatically include a &quot;source&quot; parameter if the &quot;Source&quot; property is set.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `headerF` - A function which allows to manipulate the HTTP headers.
+  - `url` - The URL to perform the POST operation.
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `data` - The data to post.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.get(System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP GET command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `url` - The URL to perform the GET operation.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.getAsync(Microsoft.FSharp.Core.FSharpFunc{System.Net.Http.Headers.HttpRequestHeaders,Microsoft.FSharp.Core.Unit},System.String,System.String,System.String)">
+<summary>
+ Executes an HTTP GET command and retrives the information.
+ It returns the response of the request, or null if we got 404 or nothing.
+ ## Parameters
+
+  - `userName` - The username to use with the request.
+  - `password` - The password to use with the request.
+  - `url` - The URL to perform the GET operation.
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFiles(Microsoft.FSharp.Collections.FSharpList{Fake.Net.Http.DownloadParameters})">
+<summary>
+ Download list of Uri&apos;s in parallel
+ DownloadParameters -&gt; string list
+ ## Parameters
+  - `input` - List of Http.DownloadParameters. Each Http.DownloadParameters record type contains Uri and file path
+
+ ## Returns
+  - `string list` type. Contains a list of downloaded file paths
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFile(System.String,System.String)">
+<summary>
+ Download file by the given file path and Uri
+ string -&gt; string -&gt; string
+ ## Parameters
+  - `localFilePath` - A local file path to download file
+  - `uri` - A Uri to download from
+
+ ## Returns
+  - `string` type. Contains a downloaded file path
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadFileAsync(Fake.Net.Http.DownloadParameters)">
+<summary>
+ [omit]     
+</summary>
+</member>
+<member name="M:Fake.Net.Http.downloadStreamToFileAsync(Fake.Net.Http.DownloadInfo)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.saveStreamToFileAsync(System.String,System.IO.Stream)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.processResults``2(Microsoft.FSharp.Core.FSharpResult{``0,``1})">
+<summary>
+ Unwraps the Result type and throws an exception if download process failed  
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createDownloadInfo(Fake.Net.Http.DownloadParameters)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createUri(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Net.Http.createFilePath(System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="T:Fake.Net.Http">
+<summary>
+ HTTP Client for downloading files
+</summary>
+</member>
+</members>
+</doc>

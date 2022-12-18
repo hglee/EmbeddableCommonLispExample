@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.Process</name></assembly>
+<members>
+<member name="P:Fake.Core.Arguments.ToWindowsCommandLine">
+<summary>
+ This is the reverse of https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+</summary>
+</member>
+<member name="P:Fake.Core.Arguments.ToStartInfo">
+<summary>
+ Create a new command line string which can be used in a ProcessStartInfo object.
+ If given, returns the exact input of `OfWindowsCommandLine` otherwise `ToWindowsCommandLine` (with some special code for `mono`) is used.
+</summary>
+</member>
+<member name="P:Fake.Core.Arguments.ToLinuxShellCommandLine">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
+<member name="M:Fake.Core.Arguments.OfWindowsCommandLine(System.String)">
+<summary>
+ See https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+</summary>
+</member>
+<member name="M:Fake.Core.Arguments.OfStartInfo(System.String)">
+<summary>
+ Create a new arguments object from a given startinfo-conforming-escaped command line string.
+ Same as `OfWindowsCommandLine`.
+</summary>
+</member>
+<member name="M:Fake.Core.Arguments.OfArgs(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Create a new arguments object from the given list of arguments
+</summary>
+</member>
+<member name="T:Fake.Core.Arguments">
+<summary>
+ Represents a list of arguments
+</summary>
+</member>
+<member name="T:Fake.Core.RawCreateProcess">
+<summary>
+ A raw (untyped) way to start a process
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.CreatePipe">
+<summary>
+ Retrieve the raw pipe from the process (the StreamRef is set with a stream you can write into for &apos;stdin&apos; and read from for &apos;stdout&apos; and &apos;stderr&apos;)
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.UseStream">
+<summary>
+ Redirect to the given stream (the stream must be provided by the user and be writeable for &apos;stdout&apos; &amp; &apos;stderr&apos; and readable for &apos;stdin&apos;)
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification.Inherit">
+<summary>
+ Do not redirect, or use normal process inheritance
+</summary>
+</member>
+<member name="T:Fake.Core.StreamSpecification">
+<summary>
+ Various options to redirect streams.
+</summary>
+</member>
+<member name="T:Fake.Core.DataRef`1">
+<summary>
+ Represents basically an &quot;out&quot; parameter, allows to retrieve a value after a certain point in time.
+ Used to retrieve &quot;pipes&quot;
+</summary>
+</member>
+<member name="T:Fake.Core.Command.RawCommand">
+<summary>
+ Windows: https://msdn.microsoft.com/en-us/library/windows/desktop/bb776391(v=vs.85).aspx
+ Linux(mono): https://github.com/mono/mono/blob/0bcbe39b148bb498742fc68416f8293ccd350fb6/eglib/src/gshell.c#L32-L104 (because we need to create a commandline string internally which need to go through that code)
+ Linux(netcore): See https://github.com/fsharp/FAKE/pull/1281/commits/285e585ec459ac7b89ca4897d1323c5a5b7e4558 and https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.Process/src/System/Diagnostics/Process.Unix.cs#L443-L522
+</summary>
+</member>
+<member name="T:Fake.Core.Command">
+<summary>
+ The type of command to execute
+</summary>
+</member>
+<member name="T:Fake.Core.StartedProcessInfo">
+<summary>
+ Some information regaring the started process
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcess`1">
+<summary>
+ Handle for creating a process and returning potential results.
+</summary>
+</member>
+<member name="T:Fake.Core.ProcessOutput">
+<summary>
+ The output of the process. If ordering between stdout and stderr is important you need to use streams.
+</summary>
+</member>
+<member name="T:Fake.Core.IProcessHook`1">
+<summary>
+ Hook for events when an CreateProcess is executed.
+</summary>
+</member>
+<member name="M:Fake.Core.Shell.Exec(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
+<summary>
+ Runs the given process, waits for it&apos;s completion and returns the exit code.
+ ## Parameters
+
+  - `cmd` - The command which should be run in elavated context.
+  - `args` - The process arguments (optional).
+  - `directory` - The working directory (optional).
+</summary>
+</member>
+<member name="M:Fake.Core.Shell.AsyncExec(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Microsoft.FSharp.Core.FSharpOption{System.String})">
+<summary>
+ Runs the given process asynchronously.
+ ## Parameters
+
+  - `cmd` - The command which should be run in elavated context.
+  - `args` - The process arguments (optional).
+  - `directory` - The working directory (optional).
+</summary>
+</member>
+<member name="T:Fake.Core.Shell">
+<summary>
+ Allows to exec shell operations synchronously and asynchronously.
+</summary>
+</member>
+<member name="P:Fake.Core.ExecParams.Args">
+<summary>
+ Command-line argument pairs. The value will be quoted if it contains
+ a string, and the result will be appended to the CommandLine property.
+ If the key ends in a letter or number, a space will be inserted between
+ the key and the value.
+</summary>
+</member>
+<member name="P:Fake.Core.ExecParams.CommandLine">
+<summary>
+ Command-line parameters in a string.
+</summary>
+</member>
+<member name="P:Fake.Core.ExecParams.WorkingDir">
+<summary>
+ The working directory for the program. Defaults to &quot;&quot;.
+</summary>
+</member>
+<member name="P:Fake.Core.ExecParams.Program">
+<summary>
+ The path to the executable, without arguments. 
+</summary>
+</member>
+<member name="P:Fake.Core.ExecParams.Empty">
+<summary>
+ Default parameters for process execution.
+</summary>
+</member>
+<member name="T:Fake.Core.ExecParams">
+<summary>
+ Parameter type for process execution.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.WorkingDirectory">
+<summary>
+ When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (&quot;&quot;).
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.Verb">
+<summary>
+ The action to take with the file that the process opens. The default is an empty string (&quot;&quot;), which signifies no action.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.UseShellExecute">
+<summary>
+ true if the shell should be used when starting the process; false if the process should be created directly from the executable file. The default is true.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.UserName">
+<summary>
+ The user name to use when starting the process. If you use the UPN format, user@DNS_domain_name, the Domain property must be null.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.StandardOutputEncoding">
+<summary>
+ An object that represents the preferred encoding for standard output. The default is null.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.StandardErrorEncoding">
+<summary>
+ An object that represents the preferred encoding for error output. The default is null.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.RedirectStandardOutput">
+<summary>
+ true if output should be written to Process.StandardOutput; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.RedirectStandardInput">
+<summary>
+ true if input should be read from Process.StandardInput; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.RedirectStandardError">
+<summary>
+ true if error output should be written to Process.StandardError; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.WindowStyle">
+<summary>
+ One of the enumeration values that indicates whether the process is started in a window that is maximized, minimized, normal (neither maximized nor minimized), or not visible. The default is Normal.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.Password">
+<summary>
+ Gets or sets the user password in clear text to use when starting the process.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.LoadUserProfile">
+<summary>
+ true if the Windows user profile should be loaded; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.FileName">
+<summary>
+ Gets or sets the application or document to start.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.ErrorDialogParentHandle">
+<summary>
+ Gets or sets the window handle to use when an error dialog box is shown for a process that cannot be started.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.ErrorDialog">
+<summary>
+ Gets or sets a value indicating whether an error dialog box is displayed to the user if the process cannot be started.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.Environment">
+<summary>
+ Gets the environment variables that apply to this process and its child processes.
+ NOTE: Recommendation is to not use this Field, but instead use the helper function in the Proc module (for example Process.setEnvironmentVariable)
+ NOTE: This field is ignored when UseShellExecute is true.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.Domain">
+<summary>
+ Gets or sets a value that identifies the domain to use when starting the process. If this value is null, the UserName property must be specified in UPN format.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.CreateNoWindow">
+<summary>
+ Gets or sets a value indicating whether to start the process in a new window.
+</summary>
+</member>
+<member name="P:Fake.Core.ProcStartInfo.Arguments">
+<summary>
+ Gets or sets the set of command-line arguments to use when starting the application.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfo.WithEnvironment(Microsoft.FSharp.Collections.FSharpMap{System.String,System.String})">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="T:Fake.Core.ProcessResult">
+<summary>
+ A process result including error code, message log and errors.
+</summary>
+</member>
+<member name="T:Fake.Core.ConsoleMessage">
+<summary>
+ A record type which captures console messages
+</summary>
+</member>
+<member name="M:Fake.Core.GuardedAwaitObservable.Async.GuardedAwaitObservable.Static``1(System.IObservable{``0},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Behaves like AwaitObservable, but calls the specified guarding function
+ after a subscriber is registered with the observable.
+</summary>
+</member>
+<member name="M:Fake.Core.GuardedAwaitObservable.synchronize``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.Unit},``0})">
+<summary>
+ Helper that can be used for writing CPS-style code that resumes
+ on the same thread where the operation was started.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.Event.guard``2(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Control.IEvent{``0,``1})">
+<summary>
+ Executes f just after adding the event-handler
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.AsyncBuilder.Bind``1(Microsoft.FSharp.Control.FSharpAsyncBuilder,System.Threading.Tasks.Task,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Control.FSharpAsync{``0}})">
+<summary>
+ An extension method that overloads the standard &apos;Bind&apos; of the &apos;async&apos; builder. The new overload awaits on
+ a standard .NET task which does not commpute a value
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.AsyncBuilder.Bind``2(Microsoft.FSharp.Control.FSharpAsyncBuilder,System.Threading.Tasks.Task{``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Control.FSharpAsync{``1}})">
+<summary>
+ An extension method that overloads the standard &apos;Bind&apos; of the &apos;async&apos; builder. The new overload awaits on
+ a standard .NET task
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessHelpers.AsyncExtensions.Async.StartAsTaskProperCancel.Static``1(Microsoft.FSharp.Control.FSharpAsync{``0},Microsoft.FSharp.Core.FSharpOption{System.Threading.Tasks.TaskCreationOptions},Microsoft.FSharp.Core.FSharpOption{System.Threading.CancellationToken})">
+<summary>
+ Like StartAsTask but gives the computation time to so some regular cancellation work
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.ofList(Microsoft.FSharp.Collections.FSharpList{System.String})">
+<summary>
+ Create a arguments instance from a list.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toArray(Fake.Core.Arguments)">
+<summary>
+ Convert the arguments instance to a string array
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toList(Fake.Core.Arguments)">
+<summary>
+ Convert the arguments instance to a string list
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendNotEmpty(System.String,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is not null or empty
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendIf(System.Boolean,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument to a command line if a condition is true.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendOption(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is Some.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendRawEscapedNotEmpty(System.String,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is Some.
+ This method is only required if you NEED quotes WITHIN your argument (some old Microsoft Tools).
+ &quot;raw&quot; methods are not compatible with non-raw methods.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendRawEscapedOption(System.String,Microsoft.FSharp.Core.FSharpOption{System.String},Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is Some.
+ This method is only required if you NEED quotes WITHIN your argument (some old Microsoft Tools).
+ &quot;raw&quot; methods are not compatible with non-raw methods.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendRawEscapedIf(System.Boolean,System.String,System.String,Fake.Core.Arguments)">
+<summary>
+ Append an argument prefixed by another if the value is Some.
+ This method is only required if you NEED quotes WITHIN your argument (some old Microsoft Tools).
+ &quot;raw&quot; methods are not compatible with non-raw methods.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendRawEscaped(System.String,System.String,Fake.Core.Arguments)">
+<summary>
+ Appends the given raw argument to the command line, you can not use other methods for this to work
+ This allows unusal quoting with the given prefix, like /k:&quot;myarg&quot; (&quot;/k:&quot; would be the argPrefix)
+ This method is only required if you NEED quotes WITHIN your argument (some old Microsoft Tools).
+ &quot;raw&quot; methods are not compatible with non-raw methods.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.appendRaw(System.String,Fake.Core.Arguments)">
+<summary>
+ Appends the given raw argument to the command line, you can not use other methods for this to work
+ This method is only required if you NEED quotes WITHIN your argument (some old Microsoft Tools).
+ &quot;raw&quot; methods are not compatible with non-raw methods.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.append(System.Collections.Generic.IEnumerable{System.String},Fake.Core.Arguments)">
+<summary>
+ Append all arguments after the current arguments    
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.withPrefix(System.Collections.Generic.IEnumerable{System.String},Fake.Core.Arguments)">
+<summary>
+ Append the given arguments before all current arguments 
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toStartInfo(Fake.Core.Arguments)">
+<summary>
+ Create a new command line string which can be used in a ProcessStartInfo object.
+ If given, returns the exact input of `OfWindowsCommandLine` otherwise `ToWindowsCommandLine` (with some special code for `mono`) is used.
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toLinuxShellCommandLine(Fake.Core.Arguments)">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
+<member name="M:Fake.Core.ArgumentsModule.toWindowsCommandLine(Fake.Core.Arguments)">
+<summary>
+ This is the reverse of https://msdn.microsoft.com/en-us/library/17w5ykft.aspx
+</summary>
+</member>
+<member name="T:Fake.Core.ArgumentsModule">
+<summary>
+ Module for working with an `Arguments` instance
+</summary>
+</member>
+<member name="M:Fake.Core.Args.fromWindowsCommandLine(System.String)">
+<summary>
+ Read a windows command line string into its arguments
+</summary>
+</member>
+<member name="M:Fake.Core.Args.toLinuxShellCommandLine(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Escape the given argument list according to a unix shell (bash)
+</summary>
+</member>
+<member name="M:Fake.Core.Args.toWindowsCommandLine(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Convert the given argument list to a conforming windows command line string, escapes parameter in quotes if needed (currently always but this might change).
+</summary>
+</member>
+<member name="T:Fake.Core.Args">
+<summary>
+ Helper functions for proper command line parsing
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findLocalTool(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Like tryFindLocalTool but returns the `tool` string if nothing is found (will probably error later, but this function is OK to be used for fake default values.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindLocalTool(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Find a local tool in the given envar the given directories, the current directory or PATH (in this order)
+ Recommended usage `tryFindLocalTool &quot;TOOL&quot; &quot;tool&quot; [ &quot;.&quot; ]`
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.walkDirectories(System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Walks directories via breadth first search (BFS)
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findPath(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Tries to find the tool via Env-Var. If no path has the right tool we are trying the PATH system variable. Considers PATHEXT on Windows.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindPath(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Tries to find the tool via given directories. If no path has the right tool we are trying the current directory and the PATH system variable. Considers PATHEXT on Windows.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindTool(System.String,System.String)">
+<summary>
+ Tries to find the tool via Env-Var. If no path has the right tool we are trying the PATH system variable.  Considers PATHEXT on Windows.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindFileOnPath(System.String)">
+<summary>
+ Searches the current directory and the directories within the PATH
+ environment variable for the given file. If successful returns the full
+ path to the file. Considers PATHEXT on Windows.
+ ## Parameters
+  - `file` - The file to locate
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFilesOnPath(System.String)">
+<summary>
+ Searches the current directory and in PATH for the given file and returnes the result ordered by precendence. Considers PATHEXT on Windows.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for the given file, failing if not found. Considers PATHEXT on Windows.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.tryFindFile(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name. Considers PATHEXT on Windows.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFiles(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name, on windows PATHEXT is considered (and preferred when searching)
+</summary>
+</member>
+<member name="M:Fake.Core.ProcessUtils.findFilesInternal(System.Collections.Generic.IEnumerable{System.String},System.String)">
+<summary>
+ Searches the given directories for all occurrences of the given file name
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.InternalStreams.StreamModule.duplicate``1(Fake.Core.InternalStreams.IStream{``0})">
+<summary>
+ Duplicates the given stream, which means returning two stream instances
+ which will read the same data. 
+ At the same time buffers all data (ie read from s as fast as possible).
+ Any data written to the returned instances will be written to the given instance.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withTimeout``1(System.TimeSpan,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the given timeout, kills the process after the specified timespan
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.warnOnExitCode``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Like`ensureExitCode` but only triggers a warning instead of failing.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ensureExitCode``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Makes sure the exit code is `0`, otherwise a detailed exception is thrown (showing the command line).    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ensureExitCodeWithMessage``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ throws an exception with the given message if `exitCode &lt;&gt; 0`     
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnExited``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Int32,``1}},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function after the process has been exited and the previous result has been calculated.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withOutputEventsNotNull``1(Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Like `withOutputEvents` but skips `null` objects.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withOutputEvents``1(Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Calls the given functions whenever a new output-line is received.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.redirectOutputIfNotRedirected``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts redirecting the output streams if they are not already redirected.
+ Be careful when using this function. Using redirectOutput is the preferred variant
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.redirectOutput``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts redirecting the output streams and collects all data at the end.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.mapResult``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Fake.Core.CreateProcess{Fake.Core.ProcessResult{``0}})">
+<summary>
+ Map only the result object and leave the exit code in the result type.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Fake.Core.CreateProcess{``0})">
+<summary>
+ Map the current result to a new type.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardInput``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard input stream.                    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardError``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard error stream.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withStandardOutput``1(Fake.Core.StreamSpecification,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the standard output stream.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.setEnvironmentVariable``1(System.String,System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the given environment variable.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.getEnvironmentMap``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Retrieve the current environment map.    
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withEnvironmentMap``1(System.Collections.Immutable.IImmutableDictionary{System.String,System.String},Fake.Core.CreateProcess{``0})">
+<summary>
+ Sets the given environment map.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withEnvironment``1(Microsoft.FSharp.Collections.FSharpList{System.Tuple{System.String,System.String}},Fake.Core.CreateProcess{``0})">
+<summary>
+ Sets the given environment variables
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnStartedEx``1(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.StartedProcessInfo,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function right after the process is started.
+ PID for process can be obtained from p parameter (p.Process.Id).
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnStarted``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function right after the process is started.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnFinally``1(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``0})">
+<summary>
+ Execute the given function when the process is cleaned up.        
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.addOnSetup``2(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Fake.Core.CreateProcess{``1})">
+<summary>
+ Execute the given function before the process is started 
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.appendSimpleFuncs``3(Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Diagnostics.Process,Microsoft.FSharp.Core.Unit}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Control.FSharpAsync{``1},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{System.Threading.Tasks.Task{Fake.Core.RawProcessResult},Microsoft.FSharp.Control.FSharpAsync{``2}}}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Fake.Core.CreateProcess{``1})">
+<summary>
+ Attaches the given functions to the current CreateProcess instance.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.mapFilePath``1(Microsoft.FSharp.Core.FSharpFunc{System.String,System.String},Fake.Core.CreateProcess{``0})">
+<summary>
+ Map the file-path according to the given function.            
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.replaceFilePath``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Replace the file-path
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withCommand``1(Fake.Core.Command,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the command to the given one.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.disableTraceCommand``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Disable the default trace of started processes.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.withWorkingDirectory``1(System.String,Fake.Core.CreateProcess{``0})">
+<summary>
+ Set the working directory of the new process.
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.copyRedirectedProcessOutputsToStandardOutputs``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Copies std-out and std-err into the corresponding `System.Console` streams (by using interceptStream).
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.interceptStream(System.IO.Stream,Fake.Core.StreamSpecification)">
+<summary>
+ intercept the given StreamSpecification and writes the intercepted data into target.
+ Throws if the stream is not redirected (ie is Inherit).
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.ofStartInfo(System.Diagnostics.ProcessStartInfo)">
+<summary>
+ Create a CreateProcess from the given `ProcessStartInfo`
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawCommand(System.String,System.Collections.Generic.IEnumerable{System.String})">
+<summary>
+ Create a CreateProcess from the given file and arguments
+ 
+ ### Example
+ 
+     CreateProcess.fromRawCommand &quot;cmd&quot; [ &quot;/C&quot;;  &quot;echo test&quot; ]
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawWindowsCommandLine(System.String,System.String)">
+<summary>
+ Create a CreateProcess from the given file and arguments
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromRawCommandLine(System.String,System.String)">
+<summary>
+ Create a CreateProcess from the given file and arguments
+ 
+ ### Example
+ 
+     CreateProcess.fromRawCommandLine &quot;cmd&quot; &quot;/C \&quot;echo test\&quot;&quot;
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+ ### Using BlackFox.CommandLine
+ 
+ See [`BlackFox.CommandLine`](https://github.com/vbfox/FoxSharp/tree/master/src/BlackFox.CommandLine) for details
+ 
+     open BlackFox.CommandLine
+ 
+     CmdLine.empty
+     |&gt; CmdLine.append &quot;build&quot;
+     |&gt; CmdLine.appendIf noRestore &quot;--no-restore&quot;
+     |&gt; CmdLine.appendPrefixIfSome &quot;--framework&quot; framework
+     |&gt; CmdLine.appendPrefixf &quot;--configuration&quot; &quot;%A&quot; configuration
+     |&gt; CmdLine.toString
+     |&gt; CreateProcess.fromRawCommandLine &quot;dotnet.exe&quot;
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcess.fromCommand(Fake.Core.Command)">
+<summary>
+ Create a simple `CreateProcess&lt;_&gt;` instance from the given command.
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcess">
+<summary>
+ Module for creating and modifying CreateProcess&lt;&apos;TRes&gt; instances.
+ You can manage:
+ 
+ - The command (ie file to execute and arguments)
+ - The working directory
+ - The process environment
+ - Stream redirection and pipes
+ - Timeout for the process to exit
+ - The result and the result transformations (`map`, `mapResult`)
+ 
+ More extensions can be found in the [CreateProcess Extensions](apidocs/v5/fake-core-createprocessext-createprocess.html)
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.run``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Like `start` but waits for the result synchronously.
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startAndAwait``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Convenience method when you immediatly want to await the result of &apos;start&apos;, just note that
+ when used incorrectly this might lead to race conditions 
+ (ie if you use StartAsTask and access reference cells in CreateProcess after that returns)
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.start``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts the given process and waits for the `Result` task. (see `startRaw` documentation). 
+ In most common scenarios the `Result` includes the `Raw` task or the exit-code one way or another.
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startRawSync``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Similar to `startRaw` but waits until the process has been started. 
+</summary>
+</member>
+<member name="M:Fake.Core.Proc.startRaw``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Starts a process. The process has been started successfully after the returned task has been completed.
+ After the task has been completed you retrieve two other tasks:
+ - One `Raw`-Task to indicate when the process exited (and return the exit-code for example)
+ - One `Result`-Task for the final result object.
+ 
+ Note: The `Result` task might finish while the `Raw` task is still running, 
+ this enables you to work with the result object before the process has exited.
+ For example consider a long running process where you are only interested in the first couple of output lines
+</summary>
+</member>
+<member name="T:Fake.Core.Proc">
+<summary>
+ Module to start or run processes, used in combination with the `CreateProcess` API.
+ 
+ ### Example
+ 
+     #r &quot;paket: 
+     nuget Fake.Core.Process //&quot;
+     open Fake.Core
+     CreateProcess.fromRawCommand &quot;./folder/mytool.exe&quot; [&quot;arg1&quot;; &quot;arg2&quot;]
+     |&gt; Proc.run
+     |&gt; ignore
+ 
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithWorkingDirectory(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ When UseShellExecute is true, the fully qualified name of the directory that contains the process to be started. When the UseShellExecute property is false, the working directory for the process to be started. The default is an empty string (&quot;&quot;).
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithVerb(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ The action to take with the file that the process opens. The default is an empty string (&quot;&quot;), which signifies no action.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithUseShellExecute(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ true if the shell should be used when starting the process; false if the process should be created directly from the executable file. The default is true.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithUserName(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ The user name to use when starting the process. If you use the UPN format, user@DNS_domain_name, the Domain property must be null.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithStandardOutputEncoding(Fake.Core.ProcStartInfo,System.Text.Encoding)">
+<summary>
+ An object that represents the preferred encoding for standard output. The default is null.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithStandardErrorEncoding(Fake.Core.ProcStartInfo,System.Text.Encoding)">
+<summary>
+ An object that represents the preferred encoding for error output. The default is null.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithRedirectStandardOutput(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ true if output should be written to Process.StandardOutput; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithRedirectStandardInput(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ true if input should be read from Process.StandardInput; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithRedirectStandardError(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ true if error output should be written to Process.StandardError; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithWindowStyle(Fake.Core.ProcStartInfo,System.Diagnostics.ProcessWindowStyle)">
+<summary>
+ One of the enumeration values that indicates whether the process is started in a window that is maximized, minimized, normal (neither maximized nor minimized), or not visible. The default is Normal.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithPassword(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ Gets or sets the user password in clear text to use when starting the process.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithLoadUserProfile(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ true if the Windows user profile should be loaded; otherwise, false. The default is false.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithFileName(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ Gets or sets the application or document to start.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithErrorDialogParentHandle(Fake.Core.ProcStartInfo,System.IntPtr)">
+<summary>
+ Gets or sets the window handle to use when an error dialog box is shown for a process that cannot be started.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithErrorDialog(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ Gets or sets a value indicating whether an error dialog box is displayed to the user if the process cannot be started.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithCurrentEnvironmentVariables(Fake.Core.ProcStartInfo)">
+<summary>
+ Sets the current environment variables.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithEnvironmentVariables(Fake.Core.ProcStartInfo,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}})">
+<summary>
+ Gets or sets a value that identifies the domain to use when starting the process.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithRemovedEnvironmentVariable(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ Unsets the given environment variable for the given startInfo.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithEnvironmentVariable(Fake.Core.ProcStartInfo,System.String,System.String)">
+<summary>
+ Sets the given environment variable for the given startInfo.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithoutEnvironment(Fake.Core.ProcStartInfo)">
+<summary>
+ Remove the current Environment Variables and use the default
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithDomain(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ Gets or sets a value that identifies the domain to use when starting the process.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithCreateNoWindow(Fake.Core.ProcStartInfo,System.Boolean)">
+<summary>
+ Gets or sets a value indicating whether to start the process in a new window.
+</summary>
+</member>
+<member name="M:Fake.Core.ProcStartInfoExtensions.ProcStartInfo.WithArguments(Fake.Core.ProcStartInfo,System.String)">
+<summary>
+ Gets or sets the set of command-line arguments to use when starting the application.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.withFramework(Fake.Core.ProcStartInfo)">
+<summary>
+ Ensures the executable is run with the full framework. On non-windows platforms that means running the tool by invoking &apos;mono&apos;.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.shellExec(Fake.Core.ExecParams)">
+<summary>
+ Execute an external program and return the exit code.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.ensureProcessesHaveStopped(System.String,System.TimeSpan)">
+<summary>
+ Waits until the processes with the given name have stopped or fails after given timeout.
+ ## Parameters
+  - `name` - The name of the processes in question.
+  - `timeout` - The timespan to time out after.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.killAllCreatedProcesses">
+<summary>
+ Kills all processes that are created by the FAKE build script unless &quot;donotkill&quot; flag was set.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.killMSBuild">
+<summary>
+ Kills the MSBuild process.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.killFSI">
+<summary>
+ Kills the F# Interactive (FSI) process.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.killAllByName(System.String)">
+<summary>
+ Kills all processes with the given name
+</summary>
+</member>
+<member name="M:Fake.Core.Process.getAllByName(System.String)">
+<summary>
+ Returns all processes with the given name
+</summary>
+</member>
+<member name="M:Fake.Core.Process.getFileName(System.Diagnostics.Process)">
+<summary>
+ Retrieve the file-path of the running executable of the given process.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.killById(System.Int32)">
+<summary>
+ Kills all processes with the given id
+</summary>
+</member>
+<member name="M:Fake.Core.Process.asyncShellExec(Fake.Core.ExecParams)">
+<summary>
+ Execute an external program asynchronously and return the exit code,
+ logging output and error messages to FAKE output. You can compose the result
+ with Async.Parallel to run multiple external programs at once, but be
+ sure that none of them depend on the output of another.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.parametersToString(System.String,System.String,System.Collections.Generic.IEnumerable{Microsoft.FSharp.Core.FSharpOption{System.Tuple{System.String,System.String}}})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.boolParam``2(``0,System.Boolean)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.optionParam``2(``0,Microsoft.FSharp.Core.FSharpOption{``1})">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.multipleStringParams``1(``0)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.stringParam``1(``0,System.String)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.UseDefaults``1">
+<summary>
+ Use default Parameters
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.toParam(System.String)">
+<summary>
+ Adds quotes and a blank around the string´.
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.quoteIfNeeded(System.String)">
+<summary>
+ Adds quotes around the string if needed
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.quote(System.String)">
+<summary>
+ Adds quotes around the string
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.start(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo})">
+<summary>
+ Starts the given process and forgets about it.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.directExec(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo})">
+<summary>
+ Runs the given process, waits for its completion and returns if it succeeded.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.fireAndForget(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo})">
+<summary>
+ Starts the given process and returns immediatly.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.execElevated(System.String,System.String,System.TimeSpan)">
+<summary>
+ Runs the given process in an elevated context and returns the exit code.
+ ## Parameters
+
+  - `cmd` - The command which should be run in elavated context.
+  - `args` - The process arguments.
+  - `timeOut` - The timeout for the process.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.execSimple(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo},System.TimeSpan)">
+<summary>
+ Runs the given process and returns the exit code.
+ ## Parameters
+
+  - `configProcessStartInfoF` - A function which overwrites the default ProcessStartInfo.
+  - `timeOut` - The timeout for the process.
+ ## Sample
+
+     let result = Process.execSimple (fun info -&gt;  
+                       info.FileName &lt;- &quot;c:/MyProc.exe&quot;
+                       info.WorkingDirectory &lt;- &quot;c:/workingDirectory&quot;
+                       info.Arguments &lt;- &quot;-v&quot;) (TimeSpan.FromMinutes 5.0)
+     
+     if result &lt;&gt; 0 then failwithf &quot;MyProc.exe returned with a non-zero exit code&quot;
+</summary>
+</member>
+<member name="M:Fake.Core.Process.execWithResult(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo},System.TimeSpan)">
+<summary>
+ Runs the given process and returns the process result.
+ ## Parameters
+
+  - `configProcessStartInfoF` - A function which overwrites the default ProcessStartInfo.
+  - `timeOut` - The timeout for the process.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.execRaw(Microsoft.FSharp.Core.FSharpFunc{Fake.Core.ProcStartInfo,Fake.Core.ProcStartInfo},System.TimeSpan,System.Boolean,Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit},Microsoft.FSharp.Core.FSharpFunc{System.String,Microsoft.FSharp.Core.Unit})">
+<summary>
+ Runs the given process and returns the exit code.
+ ## Parameters
+
+  - `configProcessStartInfoF` - A function which overwrites the default ProcessStartInfo.
+  - `timeOut` - The timeout for the process.
+  - `silent` - If this flag is set then the process output is redirected to the given output functions `errorF` and `messageF`.
+  - `errorF` - A function which will be called with the error log.
+  - `messageF` - A function which will be called with the message log.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.setCurrentEnvironmentVariables``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Collections.FSharpMap{System.String,System.String},``0}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Collections.FSharpMap{System.String,System.String}},``0)">
+<summary>
+ Sets all current environment variables to their current values
+</summary>
+</member>
+<member name="M:Fake.Core.Process.setEnvironmentVariables``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Collections.FSharpMap{System.String,System.String},``0}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Collections.FSharpMap{System.String,System.String}},System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},``0)">
+<summary>
+ Sets the given environment variables.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.removeEnvironmentVariable``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Collections.FSharpMap{System.String,System.String},``0}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Collections.FSharpMap{System.String,System.String}},System.String,``0)">
+<summary>
+ Unsets the given environment variable for the started process
+</summary>
+</member>
+<member name="M:Fake.Core.Process.setEnvironmentVariable``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Collections.FSharpMap{System.String,System.String},``0}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Collections.FSharpMap{System.String,System.String}},System.String,System.String,``0)">
+<summary>
+ Sets the given environment variable for the given startInfo.
+ Existing values will be overriden.
+</summary>
+</member>
+<member name="M:Fake.Core.Process.startProcess(System.Diagnostics.Process)">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.Process.ProcessEncoding">
+<summary>
+ If AlwaysSetProcessEncoding is set to false (default) only mono processes will be changed.
+</summary>
+</member>
+<member name="P:Fake.Core.Process.AlwaysSetProcessEncoding">
+<summary>
+ If set to true the ProcessHelper will start all processes with a custom ProcessEncoding.
+ If set to false (default) only mono processes will be changed.
+</summary>
+</member>
+<member name="P:Fake.Core.Process.enableProcessTracingVar">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.Process.redirectOutputToTraceVar">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="P:Fake.Core.Process.startedProcessesVar">
+<summary>
+ [omit]
+</summary>
+</member>
+<member name="M:Fake.Core.Process.kill(System.Diagnostics.Process)">
+<summary>
+ Kills the given process
+</summary>
+</member>
+<member name="M:Fake.Core.CreateProcessExt.CreateProcess.withFramework``1(Fake.Core.CreateProcess{``0})">
+<summary>
+ Ensures the executable is run with the full framework. On non-windows platforms that means running the tool by invoking &apos;mono&apos;.
+ 
+ ### Example
+ 
+     Command.RawCommand(&quot;file.exe&quot;, Arguments.OfArgs [&quot;arg1&quot;; &quot;arg2&quot;])
+     |&gt; CreateProcess.fromCommand
+     |&gt; CreateProcess.withFramework // start with mono if needed.
+     |&gt; Proc.run
+     |&gt; ignore
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessExt.CreateProcess">
+<summary>
+ Extensions to [`CreateProcess`](apidocs/v5/fake-core-createprocess.html).
+</summary>
+</member>
+<member name="T:Fake.Core.CreateProcessExt">
+<summary>
+ Some extensions for the `CreateProcess` module, opened automatically (use add `open Fake.Core`)
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Fake.Core.Xml</name></assembly>
+<members>
+<member name="M:Fake.Core.Xml.pokeInnerTextNS(System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.String,System.String)">
+<summary>
+ Replaces inner text of an xml node in a XML file at the location specified by a XPath expression, with support for namespaces.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.pokeNS(System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.String,System.String)">
+<summary>
+ Replaces text in a XML file at the location specified by a XPath expression, with support for namespaces.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.replaceXPathInnerTextNS``1(System.String,System.String,``0,System.Xml.XmlDocument)">
+<summary>
+ Replaces inner text in a XML document specified by a XPath expression, with support for namespaces.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.replaceXPathNS``1(System.String,System.String,``0,System.Xml.XmlDocument)">
+<summary>
+ Replaces text in a XML document specified by a XPath expression, with support for namespaces.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.pokeInnerText(System.String,System.String,System.String)">
+<summary>
+ Replaces the inner text of an xml node in a XML file at the location specified by a XPath expression.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.poke(System.String,System.String,System.String)">
+<summary>
+ Replaces text in a XML file at the location specified by a XPath expression.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.loadDoc(System.String)">
+<summary>
+ Loads the given file path into a XmlDocument
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.selectXPathNode``1(System.String,``0,System.Xml.XmlDocument)">
+<summary>
+ Selects a xml node via XPath from the given document
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.selectXPathAttributeValue``1(System.String,System.String,``0,System.Xml.XmlDocument)">
+<summary>
+ Selects a xml node attribute value via XPath from the given document
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.selectXPathValue``1(System.String,``0,System.Xml.XmlDocument)">
+<summary>
+ Selects a xml node value via XPath from the given document
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.replaceXPathAttribute(System.String,System.String,System.String,System.Xml.XmlDocument)">
+<summary>
+ Replaces the value of attribute in an xml node in the XML document specified by a XPath expression.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.replaceXPathInnerText(System.String,System.String,System.Xml.XmlDocument)">
+<summary>
+ Replaces the inner text of an xml node in the XML document specified by a XPath expression.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.replaceXPath(System.String,System.String,System.Xml.XmlDocument)">
+<summary>
+ Replaces text in the XML document specified by a XPath expression.
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.getDocElement(System.Xml.XmlDocument)">
+<summary>
+ Gets the DocumentElement of the XmlDocument
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.createDoc(System.String)">
+<summary>
+ Loads the given text into a XmlDocument
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.parseSubNode``1(System.String,Microsoft.FSharp.Core.FSharpFunc{System.Xml.XmlNode,``0})">
+<summary>
+ Parses a XML subnode
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.parse``2(System.String,Microsoft.FSharp.Core.FSharpFunc{``0,``1},``0)">
+<summary>
+ Parses a XmlNode
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.getSubNode(System.String,System.Xml.XmlNode)">
+<summary>
+ Gets the first sub node with the given name from the given XmlNode
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.getChilds``1(``0)">
+<summary>
+ Gets a sequence of all child nodes for the given XmlNode
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.getAttribute``1(System.String,``0)">
+<summary>
+ Gets the attribute with the given name from the given XmlNode
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.writeCDataElement(System.String,System.String,System.Xml.XmlWriter)">
+<summary>
+ Writes an CData element to the given XmlTextWriter
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.writeAttribute``1(System.String,``0,System.Xml.XmlWriter)">
+<summary>
+ Writes an XML attribute to current element of the given XmlTextWriter
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.endElement(System.Xml.XmlWriter)">
+<summary>
+ Writes an XML end element to the given XmlTextWriter
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.startElement(System.String,System.Xml.XmlWriter)">
+<summary>
+ Writes an XML start element to the given XmlTextWriter
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.writeComment(System.String,System.Xml.XmlWriter)">
+<summary>
+ Writes an XML comment to the given XmlTextWriter
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.getWriter(System.String)">
+<summary>
+ Creates a XmlWriter which writes to the given file name
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.read_Int(System.Boolean,System.String,System.String,System.String,System.String)">
+<summary>
+ Reads a value from a XML document using a XPath
+ Returns if the value is an int and the value
+</summary>
+</member>
+<member name="M:Fake.Core.Xml.read(System.Boolean,System.String,System.String,System.String,System.String)">
+<summary>
+ Reads a value from a XML document using a XPath
+</summary>
+</member>
+<member name="T:Fake.Core.Xml">
+<summary>
+ Contains functions to read and write XML files.
+</summary>
+</member>
+</members>
+</doc>
