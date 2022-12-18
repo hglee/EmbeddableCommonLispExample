@@ -20,12 +20,20 @@ EmbeddingExample
 EmbeddableCommonLispNet
 -----------------------
 
-1. .net binding project
+1. .NET binding project
 
-2. You need VS2019 with .NET Core SDK and C++/CLI support
+2. You need VS2022 with .NET Core SDK and C++/CLI support
 
 
 EmbeddableCommonLispNetSandbox
 ------------------------------
 
-1. .net example project for EmbeddableCommonLispNet
+1. .NET example project for EmbeddableCommonLispNet
+
+
+WumpusExample
+-------------
+
+0. Wumpus game from 'The Land of the Lisp'
+
+1. .NET WPF example project for EmbeddableCommonLispNet

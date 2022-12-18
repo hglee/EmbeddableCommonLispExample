@@ -45,6 +45,12 @@
     <ClInclude Include="EclAct1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="EclAct2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EclAct3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -72,6 +78,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EclAct1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EclAct2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EclAct3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

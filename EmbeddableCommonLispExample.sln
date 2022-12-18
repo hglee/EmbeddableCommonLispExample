@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30128.74
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmbeddingExample", "EmbeddingExample\EmbeddingExample.vcxproj", "{310D2383-1C38-496C-AFE4-2DE4F66FADB9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmbeddableCommonLispNet", "EmbeddableCommonLispNet\EmbeddableCommonLispNet.vcxproj", "{646E7D79-828D-4B7C-8B76-AB91AE018D82}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmbeddableCommonLispNetSandbox", "EmbeddableCommonLispNetSandbox\EmbeddableCommonLispNetSandbox.csproj", "{C59FB000-41B2-4612-91EF-A58A9437D9A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WumpusExample", "WumpusExample\WumpusExample.csproj", "{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{C59FB000-41B2-4612-91EF-A58A9437D9A0}.Release|x64.Build.0 = Release|x64
 		{C59FB000-41B2-4612-91EF-A58A9437D9A0}.Release|x86.ActiveCfg = Release|x86
 		{C59FB000-41B2-4612-91EF-A58A9437D9A0}.Release|x86.Build.0 = Release|x86
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Debug|x64.ActiveCfg = Debug|x64
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Debug|x64.Build.0 = Debug|x64
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Debug|x86.ActiveCfg = Debug|x86
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Debug|x86.Build.0 = Debug|x86
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Release|x64.ActiveCfg = Release|x64
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Release|x64.Build.0 = Release|x64
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Release|x86.ActiveCfg = Release|x86
+		{C50D15F2-5FAD-4DC9-9467-3BC550E3D49F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

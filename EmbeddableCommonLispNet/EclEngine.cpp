@@ -57,12 +57,48 @@ static cl_object EngineCallAct1(cl_object obj, cl_object p1)
 	return Cnil;
 }
 
+static cl_object EngineCallAct2(cl_object obj, cl_object p1, cl_object p2)
+{
+	auto data = ecl_to_pointer(obj);
+	if (data == nullptr)
+	{
+		return Cnil;
+	}
+
+	auto handle = GCHandle::FromIntPtr(IntPtr(data));
+
+	EclAct2^ act = (EclAct2^)handle.Target;
+
+	act->Run(gcnew EclObject(p1), gcnew EclObject(p2));
+
+	return Cnil;
+}
+
+static cl_object EngineCallAct3(cl_object obj, cl_object p1, cl_object p2, cl_object p3)
+{
+	auto data = ecl_to_pointer(obj);
+	if (data == nullptr)
+	{
+		return Cnil;
+	}
+
+	auto handle = GCHandle::FromIntPtr(IntPtr(data));
+
+	EclAct3^ act = (EclAct3^)handle.Target;
+
+	act->Run(gcnew EclObject(p1), gcnew EclObject(p2), gcnew EclObject(p3));
+
+	return Cnil;
+}
+
 EclEngine::EclEngine()
 {
 	ecl_def_c_function(c_string_to_object("_EngineCallFunc0"), (cl_objectfn_fixed)EngineCallFunc0, 1);
 	ecl_def_c_function(c_string_to_object("_EngineCallFunc2"), (cl_objectfn_fixed)EngineCallFunc2, 3);
 
 	ecl_def_c_function(c_string_to_object("_EngineCallAct1"), (cl_objectfn_fixed)EngineCallAct1, 2);
+	ecl_def_c_function(c_string_to_object("_EngineCallAct2"), (cl_objectfn_fixed)EngineCallAct2, 3);
+	ecl_def_c_function(c_string_to_object("_EngineCallAct3"), (cl_objectfn_fixed)EngineCallAct3, 4);
 }
 
 EclObject^ EclEngine::Read(String^ str)
@@ -162,6 +198,42 @@ EclAct1^ EclEngine::RegisterFunction(String^ name, Action<EclObject^>^ action)
 	}
 
 	auto result = gcnew EclAct1(name, action);
+	result->Register();
+
+	return result;
+}
+
+EclAct2^ EclEngine::RegisterFunction(String^ name, Action<EclObject^, EclObject^>^ action)
+{
+	if (name == nullptr)
+	{
+		throw gcnew ArgumentNullException("name");
+	}
+
+	if (action == nullptr)
+	{
+		throw gcnew ArgumentNullException("action");
+	}
+
+	auto result = gcnew EclAct2(name, action);
+	result->Register();
+
+	return result;
+}
+
+EclAct3^ EclEngine::RegisterFunction(String^ name, Action<EclObject^, EclObject^, EclObject^>^ action)
+{
+	if (name == nullptr)
+	{
+		throw gcnew ArgumentNullException("name");
+	}
+
+	if (action == nullptr)
+	{
+		throw gcnew ArgumentNullException("action");
+	}
+
+	auto result = gcnew EclAct3(name, action);
 	result->Register();
 
 	return result;

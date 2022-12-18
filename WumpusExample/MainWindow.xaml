@@ -1,0 +1,121 @@
+﻿<Window
+    x:Class="WumpusExample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpfGraphControl="http://mlsagl"
+    Title="MainWindow"
+    Width="800"
+    Height="600"
+    Closed="MainWindowOnClosed"
+    Loaded="MainWindowOnLoaded"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition Height="48" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="120" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            BorderBrush="Black"
+            BorderThickness="1">
+
+            <Grid>
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="64"
+                    FontWeight="UltraBold"
+                    Text="Hidden!"
+                    Visibility="{Binding HideAllMap, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+                <DockPanel x:Name="AllGraphPanel" Visibility="{Binding ShowAllMap, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            </Grid>
+        </Border>
+
+        <Border
+            Grid.Row="1"
+            Grid.Column="0"
+            BorderBrush="Black"
+            BorderThickness="1">
+
+            <DockPanel x:Name="KnownGraphPanel" />
+        </Border>
+
+        <StackPanel
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Orientation="Vertical">
+
+            <CheckBox
+                Margin="6"
+                Content="Show All Map"
+                IsChecked="{Binding ShowAllMap}" />
+
+            <Button
+                Margin="6"
+                Command="{Binding NewGameCommand}"
+                Content="New Game" />
+
+            <Grid Margin="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Width="48"
+                    Command="{Binding GoCommand}"
+                    Content="Go" />
+
+                <TextBox
+                    Grid.Column="1"
+                    Width="48"
+                    Text="{Binding TargetPosition}" />
+            </Grid>
+
+            <Grid Margin="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    Grid.Column="0"
+                    Width="48"
+                    Command="{Binding ChargeCommand}"
+                    Content="Charge" />
+
+                <TextBox
+                    Grid.Column="1"
+                    Width="48"
+                    Text="{Binding ChargePosition}" />
+            </Grid>
+        </StackPanel>
+
+        <TextBlock
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="6"
+            FontSize="16"
+            FontWeight="SemiBold"
+            Text="{Binding Status}" />
+    </Grid>
+</Window>
