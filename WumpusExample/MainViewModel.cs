@@ -305,7 +305,9 @@
 
             this.KnownCityGraph = new Graph();
 
-            this.engine?.Call($"(charge {this.TargetPosition})");
+            this.engine?.Call($"(charge {this.ChargePosition})");
+
+            this.UpdatePlayerPos();
 
             this.KnownCityGraph.Attr.LayerDirection = LayerDirection.LR;
             this.KnownCityGraphViewer.Graph = this.KnownCityGraph;
