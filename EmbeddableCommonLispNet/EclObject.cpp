@@ -89,7 +89,13 @@ String^ EclObject::GetString(cl_object obj)
 
 	if (ECL_STRINGP(obj))
 	{
-		return gcnew String((const char*)(obj->string.self));
+		// convert from internal UTF-32
+		const auto copySize = obj->string.dim * sizeof(ecl_character);
+		auto buffer = gcnew array<byte>(copySize);
+
+		Marshal::Copy(IntPtr(obj->string.self), buffer, 0, copySize);
+
+		return Text::Encoding::UTF32->GetString(buffer);
 	}
 
 	throw gcnew EclException("obj is not string type.");
