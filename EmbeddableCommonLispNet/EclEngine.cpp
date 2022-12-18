@@ -40,10 +40,29 @@ static cl_object EngineCallFunc2(cl_object obj, cl_object p1, cl_object p2)
 	return result->GetInternal();
 }
 
+static cl_object EngineCallAct1(cl_object obj, cl_object p1)
+{
+	auto data = ecl_to_pointer(obj);
+	if (data == nullptr)
+	{
+		return Cnil;
+	}
+
+	auto handle = GCHandle::FromIntPtr(IntPtr(data));
+
+	EclAct1^ act = (EclAct1^)handle.Target;
+
+	act->Run(gcnew EclObject(p1));
+
+	return Cnil;
+}
+
 EclEngine::EclEngine()
 {
 	ecl_def_c_function(c_string_to_object("_EngineCallFunc0"), (cl_objectfn_fixed)EngineCallFunc0, 1);
 	ecl_def_c_function(c_string_to_object("_EngineCallFunc2"), (cl_objectfn_fixed)EngineCallFunc2, 3);
+
+	ecl_def_c_function(c_string_to_object("_EngineCallAct1"), (cl_objectfn_fixed)EngineCallAct1, 2);
 }
 
 EclObject^ EclEngine::Read(String^ str)
@@ -125,6 +144,24 @@ EclFunc2^ EclEngine::RegisterFunction(String^ name, Func<EclObject^, EclObject^,
 	}
 
 	auto result = gcnew EclFunc2(name, function);
+	result->Register();
+
+	return result;
+}
+
+EclAct1^ EclEngine::RegisterFunction(String^ name, Action<EclObject^>^ action)
+{
+	if (name == nullptr)
+	{
+		throw gcnew ArgumentNullException("name");
+	}
+
+	if (action == nullptr)
+	{
+		throw gcnew ArgumentNullException("action");
+	}
+
+	auto result = gcnew EclAct1(name, action);
 	result->Register();
 
 	return result;

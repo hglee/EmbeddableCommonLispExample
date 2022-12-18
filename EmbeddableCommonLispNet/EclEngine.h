@@ -2,6 +2,7 @@
 
 #include "EclFunc0.h"
 #include "EclFunc2.h"
+#include "EclAct1.h"
 #include "EclObject.h"
 
 namespace EmbeddableCommonLispNet
@@ -56,16 +57,17 @@ namespace EmbeddableCommonLispNet
 		/// <summary>
 		/// Register function
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="function"></param>
 		EclFunc0 ^RegisterFunction(System::String ^name, System::Func<EclObject ^> ^function);
 
 		/// <summary>
 		/// Register function
 		/// </summary>
-		/// <param name="name"></param>
-		/// <param name="function"></param>
 		EclFunc2^ RegisterFunction(System::String^ name, System::Func<EclObject^, EclObject ^, EclObject ^>^ function);
+
+		/// <summary>
+		/// Register function
+		/// </summary>
+		EclAct1^ RegisterFunction(System::String^ name, System::Action<EclObject^>^ action);
 
 		/// <summary>
 		/// Enable or disable print on load.
