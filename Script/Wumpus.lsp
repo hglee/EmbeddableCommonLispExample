@@ -237,7 +237,8 @@
                      (cdr (assoc *player-pos* *congestion-city-edges*)))))
     (if edge
         (handle-new-place edge pos charging)
-      (SetStatus "That location does not exist!"))))
+        (progn (SetStatus "That location does not exist!")
+               (draw-known-city)))))
 
 (defun handle-new-place (edge pos charging)
   (let* ((node (assoc pos *congestion-city-edges*))
@@ -252,8 +253,7 @@
                                    (SetStatus "You ran into the Wumpus")))
           (charging (SetStatus "You wasted your last bullet. Game Over."))
           (has-worm (let ((new-pos (random-node)))
-                      (SetStatus "You ran into Glow Worm Gang! You're now at ")
-                      (SetStatus new-pos)
+                      (SetStatus (format nil "You ran into Glow Worm Gang! You're now at ~a" new-pos))
                       (handle-new-place nil new-pos nil))))))
 
 (SetStatus "Loaded")
