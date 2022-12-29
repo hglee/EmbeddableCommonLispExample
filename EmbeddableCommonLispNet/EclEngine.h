@@ -86,5 +86,10 @@ namespace EmbeddableCommonLispNet
 		/// </summary>
 		/// <param name="state">Enable state</param>
 		void EnableLoadPrint(bool state);
+
+		/// <summary>
+		/// Allocate console and set console output
+		/// </summary>
+		void ReAttachStdout();
 	};
 }

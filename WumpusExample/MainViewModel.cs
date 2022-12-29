@@ -171,6 +171,11 @@
         public Graph KnownCityGraph { get; set; }
 
         /// <summary>
+        /// Displays console
+        /// </summary>
+        private bool ShowConsole => true;
+
+        /// <summary>
         /// Initializes state.
         /// </summary>
         public void Init()
@@ -179,9 +184,15 @@
 
             this.engine = new EclEngine();
 
-            // Disable stdio if you target to Windows application or you need to target to Console application.
-            // TODO: Fix stdio for Windows application.
-            this.engine.EnableLoadPrint(false);
+            if (this.ShowConsole)
+            {
+                this.engine.ReAttachStdout();
+            }
+            else
+            {
+                // Disable stdio if you target to Windows application or you need to target to Console application.
+                this.engine.EnableLoadPrint(false);
+            }
 
             this.engine.RegisterFunction("AddNodeToAllCity", (x, y) =>
             {

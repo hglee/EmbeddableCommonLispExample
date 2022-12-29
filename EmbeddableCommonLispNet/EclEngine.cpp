@@ -244,3 +244,20 @@ void EclEngine::EnableLoadPrint(bool state)
 	this->Call(String::Format("(setq *load-verbose* {0})", state ? "T" : "nil"));
 	this->Call(String::Format("(setq *load-print* {0})", state ? "T" : "nil"));
 }
+
+void EclEngine::ReAttachStdout()
+{
+	if (AllocConsole())
+	{
+		auto handle = CreateFile(L"CONOUT$", GENERIC_READ | GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
+
+		ecl_setq(ecl_process_env(),
+			ecl_make_symbol("*STANDARD-OUTPUT*", "COMMON-LISP"),
+			ecl_make_stream_from_FILE(ecl_make_constant_base_string("stdout", -1),
+				handle,
+				ecl_smm_io_wcon,
+				8,
+				0,
+				ecl_make_keyword("UTF-8")));
+	}
+}
